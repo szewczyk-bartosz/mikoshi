@@ -12,17 +12,5 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-  }: {
-    nixosModules.default = {
-      config,
-      lib,
-      pkgs,
-      ...
-    }: {
-    };
-  };
+  outputs = inputs @ {flake-parts, ...}: flake-parts.lib.mkFlake {inherit inputs;} {};
 }
