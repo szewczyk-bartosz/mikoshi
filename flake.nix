@@ -17,7 +17,7 @@
       systems = []; # Workaround since we are not using perSystem
       imports = [
         ./features/hyprland.nix
-        #./default.nix
+        ./default.nix
         ./options.nix
       ];
     };
