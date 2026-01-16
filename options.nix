@@ -1,5 +1,9 @@
 {lib, ...}: {
-  flake.nixosModules.options = {lib, ...}: {
+  flake.nixosModules.options = {
+    lib,
+    pkgs,
+    ...
+  }: {
     options.mikoshi = {
       hyprland = {
         enable = lib.mkEnableOption "Mikoshi's hyprland setup";
@@ -16,6 +20,20 @@
         };
       };
 
+      terminal = {
+        font = {
+          package = lib.mkOption {
+            default = pkgs.nerd-fonts.jetbrains-mono;
+            type = lib.types.package;
+            description = "font package to be used within the terminal";
+          };
+          size = lib.mkOption {
+            default = 12;
+            type = lib.types.int;
+            description = "font size to use in terminal";
+          };
+        };
+      };
       theme = lib.mkOption {
         default = "akasara";
         type = lib.types.str;
