@@ -7,7 +7,7 @@
     options.mikoshi = {
       hyprland = {
         enable = lib.mkEnableOption "Mikoshi's hyprland setup";
-        monitor = lib.mkOption {
+        monitors = lib.mkOption {
           default = [",preferred,auto,auto"];
           type = lib.types.listOf lib.types.str;
           description = "A list of Hyprland monitor configurations (format: 'name,resolution,position,scale')";
@@ -17,6 +17,12 @@
           default = "gb";
           type = lib.types.str;
           description = "Keyboard layout to use";
+        };
+
+        mainMod = lib.mkOption {
+          default = "ALT";
+          type = lib.types.str;
+          description = "the button to use as mainMod";
         };
       };
 
