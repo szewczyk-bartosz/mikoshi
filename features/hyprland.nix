@@ -21,6 +21,7 @@
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {
+          "$mainMod" = osConfig.mikoshi.hyprland.mainMod;
           bind =
             [
               "$mainMod, Return, exec, kitty"
@@ -41,10 +42,6 @@
             ]
             ++ (map (i: "$mainMod, ${toString i}, workspace, ${toString i}") workspaces)
             ++ (map (i: "$mainMod, ${toString i}, movetoworkspace, ${toString i}") workspaces);
-
-          general = {
-            "$mainMod" = osConfig.mikoshi.hyprland.mainMod;
-          };
 
           input = {
             follow_mouse = 1;
