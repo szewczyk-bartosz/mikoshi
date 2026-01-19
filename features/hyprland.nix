@@ -1,17 +1,5 @@
 {self, ...}: {
-  flake.modules.hyprland = {
-    config,
-    lib,
-    ...
-  }: {
-    imports = [
-      self.nixosModules.hyprland
-    ];
-
-    home-manager.sharedModules = [self.homeManagerModules.hyprland];
-  };
-
-  flake.nixosModules.hyprland = {
+  flake.modules.nixos.hyprland = {
     config,
     lib,
     ...
@@ -20,6 +8,8 @@
     config = lib.mkIf config.mikoshi.hyprland.enable {
       programs.hyprland.enable = true;
     };
+
+    home-manager.sharedModules = [self.homeManagerModules.hyprland];
   };
 
   flake.homeManagerModules.hyprland = {
