@@ -16,7 +16,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = []; # Workaround since we are not using perSystem
       imports = [
-        ./features/hyprland.nix
+        ./features/hyprland
         ./options.nix
       ];
     };
