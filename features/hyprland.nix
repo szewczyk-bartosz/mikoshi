@@ -1,4 +1,16 @@
 {self, ...}: {
+  flake.modules.hyprland = {
+    config,
+    lib,
+    ...
+  }: {
+    imports = [
+      self.nixosModules.hyprland
+    ];
+
+    home-manager.sharedModules = [self.homeManagerModules.hyprland];
+  };
+
   flake.nixosModules.hyprland = {
     config,
     lib,
