@@ -6,7 +6,11 @@
   }: {
     options.mikoshi = {
       hyprland = {
-        enable = lib.mkEnableOption "Mikoshi's hyprland setup";
+        enable = lib.mkOption {
+          default = true;
+          type = lib.types.bool;
+          description = "Whether to enable Mikoshi's hyprland setup";
+        };
         monitors = lib.mkOption {
           default = [",preferred,auto,auto"];
           type = lib.types.listOf lib.types.str;
