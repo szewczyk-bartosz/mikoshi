@@ -30,11 +30,12 @@
               "SUPER, V, sendshortcut, SHIFT, Insert"
             ]
             ++ (map (i: "$mainMod, ${toString i}, workspace, ${toString i}") workspaces)
-            ++ (map (i: "$mainMod, ${toString i}, movetoworkspace, ${toString i}") workspaces);
+            ++ (map (i: "$mainMod SHIFT, ${toString i}, movetoworkspace, ${toString i}") workspaces);
 
           input = {
             follow_mouse = 1;
             kb_layout = osConfig.mikoshi.hyprland.keyboardLayout;
+            kb_options = "ctrl:nocaps";
           };
           monitor = osConfig.mikoshi.hyprland.monitors;
         };
