@@ -1,5 +1,5 @@
 {...}: {
-  flake.homeManagerModules.hyprland = {
+  flake.modules.homeManager.hyprland = {
     osConfig,
     lib,
     ...

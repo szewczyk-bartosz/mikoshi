@@ -4,10 +4,10 @@
     lib,
     ...
   }: {
-    imports = [self.nixosModules.options];
+    imports = [self.modules.options];
     config = lib.mkIf config.mikoshi.hyprland.enable {
       programs.hyprland.enable = true;
-      home-manager.sharedModules = [self.homeManagerModules.hyprland];
+      home-manager.sharedModules = [self.modules.homeManager.hyprland];
     };
   };
 }
