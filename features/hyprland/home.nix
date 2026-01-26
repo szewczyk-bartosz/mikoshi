@@ -10,7 +10,7 @@
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {
-          "$mainMod" = osConfig.mikoshi.hyprland.mainMod;
+          "$mainMod" = osConfig.mikoshi.mainMod;
           bind =
             [
               "$mainMod, Return, exec, kitty"
