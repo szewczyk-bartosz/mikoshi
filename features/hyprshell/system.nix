@@ -4,7 +4,7 @@
     lib,
     ...
   }: {
-    imports = [./options.nix self.modules.options];
+    # imports = [self.modules.nixos.hyprshellOptions self.modules.nixos.globalOptions];
     config = lib.mkIf config.mikoshi.hyprshell.enable {
       home-manager.sharedModules = [self.modules.homeManager.hyprshell];
     };
