@@ -1,5 +1,5 @@
 {lib, ...}: {
-  flake.nixosModules.options = {
+  flake.modules.options = {
     lib,
     pkgs,
     ...
