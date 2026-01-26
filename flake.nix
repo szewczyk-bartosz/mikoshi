@@ -9,15 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    import-tree.url = "github:vic/import-tree";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = []; # Workaround since we are not using perSystem
-      imports = [
-        ./features/hyprland
-        ./options.nix
-      ];
-    };
+    flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./features)
 }
