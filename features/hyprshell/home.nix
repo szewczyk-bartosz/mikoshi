@@ -11,8 +11,7 @@
         settings = lib.mkDefault {
           windows = {
             launcher = {
-              key = "space"; # TODO: make this into an option
-              modifier = "alt"; # TODO: this as well
+              key = "super_l"; # TODO: make this into an option
             };
             switch = {
               modifier = "alt"; #TODO: and this
