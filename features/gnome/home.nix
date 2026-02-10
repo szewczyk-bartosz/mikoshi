@@ -1,44 +1,62 @@
 {...}: {
-  flake.modules.homeManager.hyprland = {
+  flake.modules.homeManager.gnome = {
     osConfig,
     lib,
     ...
-  }: let
-    workspaces = builtins.genList (x: x) 10;
-  in {
-    config = lib.mkIf osConfig.mikoshi.hyprland.enable {
-      wayland.windowManager.hyprland = {
-        enable = true;
-        settings = {
-          "$mainMod" = osConfig.mikoshi.mainMod;
-          bind =
-            [
-              "$mainMod, Return, exec, kitty"
-              "$mainMod SHIFT, Q, killactive"
-              "$mainMod SHIFT, O, exit"
-              "$mainMod, H, movefocus, l"
-              "$mainMod, J, movefocus, d"
-              "$mainMod, K, movefocus, u"
-              "$mainMod, L, movefocus, r"
-              "$mainMod SHIFT, H, movewindow, l"
-              "$mainMod SHIFT, J, movewindow, d"
-              "$mainMod SHIFT, K, movewindow, u"
-              "$mainMod SHIFT, L, movewindow, r"
-              "$mainMod, V, togglefloating"
-              # Omarchy inspired
-              "SUPER, C, sendshortcut, CTRL, Insert"
-              "SUPER, V, sendshortcut, SHIFT, Insert"
-            ]
-            ++ (map (i: "$mainMod, ${toString i}, workspace, ${toString i}") workspaces)
-            ++ (map (i: "$mainMod SHIFT, ${toString i}, movetoworkspace, ${toString i}") workspaces);
+  }: {
+    dconf.settings = {
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          "pop-shell@system76.com"
+        ];
+      };
 
-          input = {
-            follow_mouse = 1;
-            kb_layout = osConfig.mikoshi.hyprland.keyboardLayout;
-            kb_options = "ctrl:nocaps";
-          };
-          monitor = osConfig.mikoshi.hyprland.monitors;
-        };
+      "org/gnome/shell/extensions/pop-shell" = {
+        show-title = false; # Disable launcher
+
+        gap-inner = 4;
+        gap-outer = 4;
+
+        tile-by-default = true;
+        active-hint = true;
+        smart-gaps = true; # No gaps if only one window
+
+        float-window-classes = [
+          "nm-applet"
+          "gnome-calculator"
+        ];
+
+        focus-left = ["<Alt>h"];
+        focus-down = ["<Alt>j"];
+        focus-up = ["<Alt>k"];
+        focus-right = ["<Alt>l"];
+
+        tile-move-left = ["<Shift><Alt>h"];
+        tile-move-down = ["<Shift><Alt>j"];
+        tile-move-up = ["<Shift><Alt>k"];
+        tile-move-right = ["<Shift><Alt>l"];
+
+        tile-move-to-workspace-1 = ["<Shift><Alt>1"];
+        tile-move-to-workspace-2 = ["<Shift><Alt>2"];
+        tile-move-to-workspace-3 = ["<Shift><Alt>3"];
+        tile-move-to-workspace-4 = ["<Shift><Alt>4"];
+        tile-move-to-workspace-5 = ["<Shift><Alt>5"];
+        tile-move-to-workspace-6 = ["<Shift><Alt>6"];
+        tile-move-to-workspace-7 = ["<Shift><Alt>7"];
+        tile-move-to-workspace-8 = ["<Shift><Alt>8"];
+        tile-move-to-workspace-9 = ["<Shift><Alt>9"];
+      };
+
+      "org/gnome/desktop/wm/keybindings" = {
+        switch-to-workspace-1 = ["<Alt>1"];
+        switch-to-workspace-2 = ["<Alt>2"];
+        switch-to-workspace-3 = ["<Alt>3"];
+        switch-to-workspace-4 = ["<Alt>4"];
+        switch-to-workspace-5 = ["<Alt>5"];
+        switch-to-workspace-6 = ["<Alt>6"];
+        switch-to-workspace-7 = ["<Alt>7"];
+        switch-to-workspace-8 = ["<Alt>8"];
+        switch-to-workspace-9 = ["<Alt>9"];
       };
     };
   };
