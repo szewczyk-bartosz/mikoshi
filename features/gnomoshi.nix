@@ -3,6 +3,8 @@
     imports = with config.flake.modules.nixos; [
       globalOptions
       gnome
+      defaultApps
+      devTools
     ];
   };
 }
