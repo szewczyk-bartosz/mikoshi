@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: {
-    options.mikoshi.hyprland = {
+    options.mikoshi.gnome = {
       enable = lib.mkOption {
         default = true;
         type = lib.types.bool;
