@@ -24,13 +24,13 @@
       };
 
       programs.dconf.enable = true;
+      time.timeZone = "Europe/London"; #TODO: Make this an option
+      services.xserver.xkb.layout = config.mikoshi.gnome.kb;
 
       ##########
 
       services.displayManager.gdm.enable = true;
       services.xserver.enable = true;
-      time.timeZone = "Europe/London"; #TODO: Make this an option
-      services.xserver.xkb.layout = config.gnome.kb;
       services.desktopManager.gnome.enable = true;
       services.gnome.core-apps.enable = false;
       programs.seahorse.enable = true;
