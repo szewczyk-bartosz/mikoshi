@@ -11,6 +11,9 @@
         ];
       };
 
+      "org/gnome/desktop/inputs-sources" = {
+        xkb-options = ["ctrl:nocaps"];
+      };
       "org/gnome/shell/extensions/pop-shell" = {
         show-title = false; # Disable launcher
 
