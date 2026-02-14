@@ -15,6 +15,8 @@
         ghostty
         jetbrains.idea
         brave
+        firefox
+        claude-code
       ];
     };
   };
