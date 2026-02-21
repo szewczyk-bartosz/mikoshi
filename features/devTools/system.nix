@@ -15,6 +15,7 @@
         cargo
         rustfmt
         python313
+        python313Packages.pandas
         maven
         jdk
       ];
