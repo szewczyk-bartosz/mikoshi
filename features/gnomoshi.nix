@@ -5,6 +5,7 @@
       gnome
       defaultApps
       devTools
+      tmux
     ];
   };
 }
