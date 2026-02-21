@@ -14,7 +14,7 @@
         rustc
         cargo
         rustfmt
-        (python313.withPackages (packages: with packages; [lxml pandas]))
+        (python313.withPackages (packages: with packages; [lxml requests pandas]))
         maven
         jdk
       ];
