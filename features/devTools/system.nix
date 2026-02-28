@@ -8,6 +8,8 @@
     # imports = [self.modules.nixos.gnomeOptions];
     # TODO: Add options to this
     config = {
+      virtualisation.docker.enable = true;
+      user.users.cheryllamb.extraGroups = ["docker"];
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
