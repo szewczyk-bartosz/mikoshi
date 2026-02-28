@@ -10,7 +10,7 @@
     config = {
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = with pkgs; [
-        anki
+        # anki
         chromium
         ghostty
         jetbrains.idea
