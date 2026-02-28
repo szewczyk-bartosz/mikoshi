@@ -17,6 +17,7 @@
         brave
         firefox
         claude-code
+        discord
       ];
     };
   };
