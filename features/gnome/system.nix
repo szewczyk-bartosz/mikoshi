@@ -28,7 +28,8 @@
       services.xserver.xkb.layout = config.mikoshi.gnome.kb;
 
       ##########
-
+      programs.nautilus-portal.enable = true;
+      services.gnome.gvfs.enable = true;
       services.displayManager.gdm.enable = true;
       services.xserver.enable = true;
       services.desktopManager.gnome.enable = true;
