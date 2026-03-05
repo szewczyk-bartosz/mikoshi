@@ -39,9 +39,8 @@ Each feature module follows a consistent pattern:
 
 ## Status
 
-- GNOME profile: functional and in daily use
-- Hyprland/Hyprshell setup: under active development
-- Module structure and flake architecture: stable
+- GNOME profile: functional and in daily use, still tweaking
+- Hyprland/Hyprshell setup: under development, will get back to it once I have more time
 
 ## License
 
