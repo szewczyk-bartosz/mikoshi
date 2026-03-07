@@ -18,6 +18,7 @@
         firefox
         claude-code
         discord
+        keepassxc
       ];
     };
   };
