@@ -13,7 +13,6 @@
       # Dark mode and normal scaling
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        text-scaling-factor = 1.25;
       };
 
       "org/gnome/desktop/inputs-sources" = {
