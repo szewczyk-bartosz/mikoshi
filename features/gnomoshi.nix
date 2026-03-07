@@ -6,6 +6,8 @@
       defaultApps
       devTools
       tmux
+      fonts
+      icons
     ];
   };
 }
