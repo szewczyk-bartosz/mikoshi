@@ -15,6 +15,9 @@
         color-scheme = "prefer-dark";
       };
 
+      "org/gnome/desktop/input-sources" = {
+        sources = [(lib.hm.gvariant.mkTuple ["xkb" "${osConfig.mikoshi.gnome.kb}"])];
+      };
       "org/gnome/desktop/inputs-sources" = {
         xkb-options = ["ctrl:nocaps"];
       };
