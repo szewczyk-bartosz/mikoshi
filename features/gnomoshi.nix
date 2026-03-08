@@ -8,6 +8,7 @@
       tmux
       fonts
       icons
+      steam
     ];
   };
 }
