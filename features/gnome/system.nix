@@ -25,7 +25,7 @@
 
       programs.dconf.enable = true;
       time.timeZone = "Europe/London"; #TODO: Make this an option
-      services.xserver.xkb.layout = config.mikoshi.gnome.kb;
+      services.xserver.xkb.layout = lib.mkDefault config.mikoshi.gnome.kb;
 
       ##########
       services.displayManager.gdm.enable = true;
