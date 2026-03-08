@@ -8,7 +8,9 @@
     # imports = [self.modules.nixos.gnomeOptions];
     # TODO: Add options to this
     config = {
+      # Allow unfree
       nixpkgs.config.allowUnfree = true;
+
       environment.systemPackages = with pkgs; [
         # anki
         chromium
@@ -19,6 +21,7 @@
         claude-code
         discord
         keepassxc
+        spotify
       ];
     };
   };
