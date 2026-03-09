@@ -9,7 +9,6 @@
     # TODO: Add options to this
     config = {
       virtualisation.docker.enable = true;
-      users.users.cheryllamb.extraGroups = ["docker"];
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
