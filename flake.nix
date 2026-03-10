@@ -12,6 +12,8 @@
     import-tree.url = "github:vic/import-tree";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    mikoshi-neovim.url = "github:szewczyk-bartosz/mikoshi-neovim";
   };
 
   outputs = inputs @ {
