@@ -34,6 +34,8 @@
         float-window-classes = [
           "nm-applet"
           "gnome-calculator"
+          "steam_app_0"
+          "steam_app_1"
         ];
 
         focus-left = ["<Alt>h"];
