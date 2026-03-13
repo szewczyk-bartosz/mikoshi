@@ -6,8 +6,8 @@
     inputs,
     ...
   }: {
+    imports = [inputs.home-manager.nixosModules.homeManager];
     config = {
-      imports = [inputs.home-manager.nixosModules.homeManager];
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
