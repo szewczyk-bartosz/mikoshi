@@ -15,6 +15,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
+        ./features/home-manager
         ./features/options
         ./features/audio
         ./features/defaultApps

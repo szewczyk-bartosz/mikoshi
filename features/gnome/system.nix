@@ -4,10 +4,7 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./options.nix
-    ../home-manager/default.nix
-  ];
+  imports = [./options.nix];
   config = lib.mkIf config.mikoshi.gnome.enable {
     i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
     console = {
