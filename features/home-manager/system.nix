@@ -3,10 +3,11 @@
     config,
     lib,
     pkgs,
+    inputs,
     ...
   }: {
     config = {
-      programs.home-manager.enable = true;
+      imports = [inputs.home-manager.nixosModules.homeManager];
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;

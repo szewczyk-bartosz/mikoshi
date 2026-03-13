@@ -5,7 +5,10 @@
     pkgs,
     ...
   }: {
-    imports = [self.modules.nixos.iconsOptions];
+    imports = [
+      self.modules.nixos.iconsOptions
+      self.modules.nixos.homeManager
+    ];
     config = lib.mkIf config.mikoshi.icons.enable {
       environment.systemPackages = with pkgs; [
         adwaita-icon-theme
