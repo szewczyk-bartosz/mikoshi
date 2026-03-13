@@ -4,10 +4,7 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./options.nix
-    ../home-manager/default.nix
-  ];
+  imports = [./options.nix];
   config = lib.mkIf config.mikoshi.icons.enable {
     environment.systemPackages = with pkgs; [
       adwaita-icon-theme

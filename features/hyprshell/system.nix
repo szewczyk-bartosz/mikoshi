@@ -3,10 +3,7 @@
   lib,
   ...
 }: {
-  imports = [
-    ./options.nix
-    ../home-manager/default.nix
-  ];
+  imports = [./options.nix];
   config = lib.mkIf config.mikoshi.hyprshell.enable {
     home-manager.sharedModules = [./home.nix];
   };

@@ -1,3 +1,8 @@
-{...}: {
-  flake.nixosModules.waybar = import ./system.nix;
+{config, ...}:
+let
+  homeManagerModule = config.flake.nixosModules.home-manager;
+in {
+  flake.nixosModules.waybar = {
+    imports = [./system.nix homeManagerModule];
+  };
 }
