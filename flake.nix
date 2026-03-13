@@ -30,6 +30,7 @@
         ./features/steam
         ./features/tmux
         ./features/waybar
+
         ./profiles/gnomoshi
         ./profiles/mikoshi-full
       ];
