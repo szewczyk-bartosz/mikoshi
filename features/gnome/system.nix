@@ -5,7 +5,10 @@
     pkgs,
     ...
   }: {
-    imports = [self.modules.nixos.gnomeOptions];
+    imports = [
+      self.modules.nixos.gnomeOptions
+      self.modules.nixos.homeManager
+    ];
     config = lib.mkIf config.mikoshi.gnome.enable {
       i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
       console = {
