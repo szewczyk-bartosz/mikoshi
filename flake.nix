@@ -18,8 +18,6 @@
         ./features/home-manager
         ./features/options
         ./features/audio
-        ./features/defaultApps
-        ./features/devTools
         ./features/fonts
         ./features/gnome
         ./features/hyprland
