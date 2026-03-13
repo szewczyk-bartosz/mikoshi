@@ -1,15 +1,13 @@
-{self, ...}: {
-  flake.modules.nixos.hyprshell = {
-    config,
-    lib,
-    ...
-  }: {
-    imports = [
-      self.modules.nixos.hyprshellOptions
-      self.modules.nixos.homeManager
-    ];
-    config = lib.mkIf config.mikoshi.hyprshell.enable {
-      home-manager.sharedModules = [self.modules.homeManager.hyprshell];
-    };
+{
+  config,
+  lib,
+  ...
+}: {
+  imports = [
+    ./options.nix
+    ../home-manager/default.nix
+  ];
+  config = lib.mkIf config.mikoshi.hyprshell.enable {
+    home-manager.sharedModules = [./home.nix];
   };
 }

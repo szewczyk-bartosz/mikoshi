@@ -1,6 +1,6 @@
 {config, ...}: {
-  flake.modules.nixos.gnomoshi = {
-    imports = with config.flake.modules.nixos; [
+  flake.nixosModules.gnomoshi = {
+    imports = with config.flake.nixosModules; [
       globalOptions
       audio
       network
