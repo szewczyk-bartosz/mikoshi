@@ -6,6 +6,7 @@
       network
       gnome
       tmux
+      stylix
       fonts
       icons
       steam

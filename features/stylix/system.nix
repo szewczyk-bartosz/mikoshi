@@ -9,6 +9,7 @@
     stylix = {
       enable = true;
       base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/${config.mikoshi.stylix.base16Scheme}.yaml";
+      polarity = "dark";
     };
     home-manager.sharedModules = [./home.nix];
   };

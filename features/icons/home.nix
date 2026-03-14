@@ -7,15 +7,15 @@
   config = lib.mkIf osConfig.mikoshi.icons.enable {
     gtk = {
       enable = true;
-      theme = {
+      theme = lib.mkDefault {
         name = "adw-gtk3";
         package = pkgs.adw-gtk3;
       };
-      iconTheme = {
+      iconTheme = lib.mkDefault {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
       };
-      cursorTheme = {
+      cursorTheme = lib.mkDefault {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
       };
