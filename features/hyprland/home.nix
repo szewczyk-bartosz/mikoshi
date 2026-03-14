@@ -25,9 +25,14 @@
         env = [
           "XCURSOR_SIZE,24"
           "HYPRCURSOR_SIZE,24"
+          "NIXOS_OZONE_WL,1"
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_TYPE,wayland"
+          "XDG_SESSION_DESKTOP,Hyprland"
         ];
 
         "exec-once" = [
+          "lxqt-polkit"
           "waybar"
           "swaync"
           "nm-applet"
