@@ -11,3 +11,4 @@ Add shaders and better fonts to ghostty
 
 Customise PopShell, the orange outline looks awful
 
+brightnessctl needs to be system-level and the user needs to be in the video group to use it without sudo 
