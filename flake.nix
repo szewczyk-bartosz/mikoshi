@@ -22,7 +22,6 @@
       imports = [
         ./features/home-manager
         ./features/ghostty
-        ./features/options
         ./features/stylix
         ./features/audio
         ./features/fonts
