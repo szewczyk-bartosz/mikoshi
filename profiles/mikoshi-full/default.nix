@@ -3,7 +3,6 @@
     imports = with config.flake.nixosModules; [
       globalOptions
       hyprland
-      hyprshell
     ];
   };
 }
