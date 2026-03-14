@@ -5,8 +5,6 @@
       audio
       network
       gnome
-      defaultApps
-      devTools
       tmux
       fonts
       icons
