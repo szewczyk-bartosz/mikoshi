@@ -16,5 +16,11 @@
       type = lib.types.str;
       description = "Keyboard layout to use";
     };
+
+    mainMod = lib.mkOption {
+      default = "ALT";
+      type = lib.types.str;
+      description = "the button to use as mainMod";
+    };
   };
 }
