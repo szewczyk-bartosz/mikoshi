@@ -4,6 +4,7 @@
       globalOptions
       audio
       network
+      ghostty
       gnome
       tmux
       stylix
