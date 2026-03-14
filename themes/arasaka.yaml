@@ -1,0 +1,21 @@
+system: "base16"
+name: "Arasaka"
+author: "szewczyk-bartosz"
+variant: "dark"
+palette:
+  base00: "000000"  # pure black bg
+  base01: "0D0000"  # slightly lifted black
+  base02: "1A0000"  # selection bg
+  base03: "330000"  # comments
+  base04: "660000"  # dark red
+  base05: "CC0000"  # main red (foreground)
+  base06: "DD0000"  # bright red
+  base07: "FF0000"  # pure red (brightest)
+  base08: "FF0000"  # variables
+  base09: "CC2200"  # numbers
+  base0A: "FF2200"  # classes
+  base0B: "AA0000"  # strings
+  base0C: "880000"  # regex
+  base0D: "DD1100"  # functions
+  base0E: "FF1100"  # keywords
+  base0F: "660000"  # deprecated
