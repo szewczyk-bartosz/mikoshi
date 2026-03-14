@@ -27,13 +27,11 @@
         ./features/fonts
         ./features/gnome
         ./features/hyprland
-        ./features/hyprshell
         ./features/icons
         ./features/neovim
         ./features/network
         ./features/steam
         ./features/tmux
-        ./features/waybar
 
         ./profiles/gnomoshi
         ./profiles/mikoshi-full
