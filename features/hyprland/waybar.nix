@@ -5,15 +5,6 @@
   ...
 }: {
   config = lib.mkIf osConfig.mikoshi.hyprland.enable {
-    home.packages = with pkgs; [
-      swaynotificationcenter
-      wlogout
-      networkmanagerapplet
-      pavucontrol
-      playerctl
-      brightnessctl
-    ];
-
     programs.waybar = {
       enable = true;
       settings = {
