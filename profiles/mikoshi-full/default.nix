@@ -1,8 +1,14 @@
 {config, ...}: {
   flake.nixosModules.mikoshiFull = {
     imports = with config.flake.nixosModules; [
-      globalOptions
       hyprland
+      audio
+      network
+      ghostty
+      tmux
+      fonts
+      icons
+      neovim
     ];
   };
 }
