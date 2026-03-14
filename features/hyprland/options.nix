@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   options.mikoshi.hyprland = {
     enable = lib.mkOption {
       default = true;
@@ -21,6 +25,18 @@
       default = "ALT";
       type = lib.types.str;
       description = "the button to use as mainMod";
+    };
+
+    terminal = lib.mkOption {
+      default = pkgs.ghostty;
+      type = lib.types.package;
+      description = "Package to use as the default terminal";
+    };
+
+    fileManager = lib.mkOption {
+      default = pkgs.nautilus;
+      type = lib.types.package;
+      description = "Package to use as the default file manager";
     };
   };
 }
