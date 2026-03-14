@@ -222,11 +222,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1773449328,
-        "narHash": "sha256-BNo7+mL7QBldIoOxRmbYPcT3A4pedjqb6MgHdyWmtaI=",
+        "lastModified": 1773530944,
+        "narHash": "sha256-Mp6SnpOOLF0R1EWUiOelrZ5HmRA3i0aZ9SYGgITE3/g=",
         "owner": "szewczyk-bartosz",
         "repo": "mikoshi-neovim",
-        "rev": "687634f65fbf94f4cafaf968f81548aa1207dffa",
+        "rev": "f73888566b158dd656a284914576c0d68fa86ddb",
         "type": "github"
       },
       "original": {
