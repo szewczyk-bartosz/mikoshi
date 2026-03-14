@@ -7,6 +7,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     mikoshi-neovim.url = "github:szewczyk-bartosz/mikoshi-neovim";
   };
@@ -17,6 +22,7 @@
       imports = [
         ./features/home-manager
         ./features/options
+        ./features/stylix
         ./features/audio
         ./features/fonts
         ./features/gnome
