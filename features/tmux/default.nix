@@ -1,7 +1,5 @@
-{config, ...}: let
-  homeManagerModule = config.flake.nixosModules.home-manager;
-in {
+{config, ...}: {
   flake.nixosModules.tmux = {
-    imports = [./system.nix homeManagerModule];
+    imports = [./system.nix config.flake.nixosModules.home-manager];
   };
 }
