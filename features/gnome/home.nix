@@ -11,7 +11,7 @@
     };
     # Dark mode and normal scaling
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
+      color-scheme = lib.mkDefault "prefer-dark";
     };
 
     "org/gnome/desktop/input-sources" = {
