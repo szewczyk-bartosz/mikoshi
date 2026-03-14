@@ -21,6 +21,7 @@
       systems = ["x86_64-linux"];
       imports = [
         ./features/home-manager
+        ./features/ghostty
         ./features/options
         ./features/stylix
         ./features/audio
