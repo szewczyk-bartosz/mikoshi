@@ -1,10 +1,12 @@
 {
   osConfig,
   lib,
+  inputs,
   ...
 }: {
+  imports = [inputs.hyprshell.homeModules.hyprshell];
   config = lib.mkIf osConfig.mikoshi.hyprland.enable {
-    services.hyprshell = {
+    programs.hyprshell = {
       enable = true;
       systemd.enable = true;
       settings = {

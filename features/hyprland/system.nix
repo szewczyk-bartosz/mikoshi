@@ -25,13 +25,11 @@
       waybar
       swaynotificationcenter
       networkmanagerapplet
-      xdg-desktop-portal-hyprland
       lxqt.lxqt-policykit
     ];
 
     xdg.portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
       config.common.default = "*";
     };
   };
