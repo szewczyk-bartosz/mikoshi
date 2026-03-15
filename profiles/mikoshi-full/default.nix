@@ -6,6 +6,7 @@
       network
       ghostty
       tmux
+      stylix
       fonts
       icons
       neovim
