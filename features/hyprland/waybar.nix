@@ -23,7 +23,7 @@
           };
 
           clock = {
-            format = "{%H:%M  %a %d %b}";
+            format = "{:%H:%M  %a %d %b}";
             on-click = "swaync-client -t";
           };
 
