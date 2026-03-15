@@ -11,11 +11,14 @@
       systemd.enable = true;
       settings = {
         windows = {
+          enable = true;
           switch = {
+            enable = true;
             modifier = "alt";
           };
           overview = {
-            key = "super";
+            enable = true;
+            key = "super_l";
             launcher = {
               max_items = 6;
             };

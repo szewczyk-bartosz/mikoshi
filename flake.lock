@@ -694,11 +694,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1773530944,
-        "narHash": "sha256-Mp6SnpOOLF0R1EWUiOelrZ5HmRA3i0aZ9SYGgITE3/g=",
+        "lastModified": 1773549057,
+        "narHash": "sha256-mj3QKbNaCkBPorHy/VPUqegKuY3h0sQO/601gTIj7JQ=",
         "owner": "szewczyk-bartosz",
         "repo": "mikoshi-neovim",
-        "rev": "f73888566b158dd656a284914576c0d68fa86ddb",
+        "rev": "dc2424b9910063c9c3a8203dd3fb844651a2d9fc",
         "type": "github"
       },
       "original": {
