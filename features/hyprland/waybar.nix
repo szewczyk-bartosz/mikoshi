@@ -20,6 +20,9 @@
           "hyprland/workspaces" = {
             format = "{id}";
             on-click = "activate";
+            persistent-workspaces = {
+              "*" = 4;
+            };
           };
 
           clock = {
@@ -38,7 +41,6 @@
           pulseaudio = {
             format = "{icon} {volume}%";
             format-muted = "󰝟 Muted";
-            on-click = "pavucontrol";
             format-icons = {
               default = ["󰕿" "󰖀" "󰕾"];
             };
