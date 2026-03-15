@@ -7,6 +7,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprshell = {
+      url = "github:H3rmt/hyprshell?ref=hyprshell-release";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     stylix = {
       url = "github:nix-community/stylix";
