@@ -13,7 +13,7 @@
             modifier = "alt";
           };
           overview = {
-            key = "super_l";
+            key = "super";
             launcher = {
               max_items = 6;
             };
