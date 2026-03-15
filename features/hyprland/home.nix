@@ -8,8 +8,17 @@
       enable = true;
       systemd.enable = true;
       settings = {
-        windows.switch.modifier = "alt";
-        windows.launcher.key = "super_l";
+        windows = {
+          switch = {
+            modifier = "alt";
+          };
+          overview = {
+            key = "super_l";
+            launcher = {
+              max_items = 6;
+            };
+          };
+        };
       };
     };
 

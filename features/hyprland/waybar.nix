@@ -23,7 +23,7 @@
           };
 
           clock = {
-            format = "%H:%M  %a %d %b";
+            format = "{%H:%M  %a %d %b}";
             on-click = "swaync-client -t";
           };
 
@@ -45,7 +45,7 @@
           };
 
           "custom/power" = {
-            format = "";
+            format = "⏻";
             on-click = "wlogout";
             tooltip = false;
           };
