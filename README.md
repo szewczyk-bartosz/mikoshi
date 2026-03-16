@@ -19,7 +19,6 @@ features/
 ├── flake-parts/       # Flake-parts integration
 ├── gnome/             # GNOME desktop environment module
 ├── hyprland/          # Hyprland compositor module (in progress)
-├── hyprshell/         # Hyprshell configuration
 ├── tmux/              # Tmux configuration
 ├── waybar/            # Waybar status bar configuration
 ├── options.nix        # Global options
@@ -40,7 +39,7 @@ Each feature module follows a consistent pattern:
 ## Status
 
 - GNOME profile: functional and in daily use, still tweaking
-- Hyprland/Hyprshell setup: under development, will get back to it once I have more time
+- Hyprland setup: under development, using rofi-wayland as launcher
 
 ## License
 

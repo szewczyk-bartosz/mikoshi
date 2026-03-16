@@ -15,7 +15,7 @@
 
           modules-left = ["hyprland/workspaces"];
           modules-center = ["clock"];
-          modules-right = ["network" "pulseaudio" "custom/power"];
+          modules-right = ["tray" "network" "pulseaudio" "custom/power"];
 
           "hyprland/workspaces" = {
             format = "{id}";
@@ -30,12 +30,15 @@
             on-click = "swaync-client -t";
           };
 
+          "tray" = {
+            spacing = 8;
+          };
+
           network = {
-            format-wifi = "{icon} {essid}";
-            format-ethernet = "󰈀 Wired";
-            format-disconnected = "󰖪 Disconnected";
-            on-click = "nm-applet";
-            format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
+            format-wifi = "{icon}";
+            format-ethernet = "󰈀";
+            format-disconnected = "󰖪";
+            format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
           };
 
           pulseaudio = {
