@@ -10,7 +10,18 @@
     home-manager = {
       sharedModules = [./home.nix ./waybar.nix];
     };
-
+    # Not sure how I feel about this, this might be lighter but I think I prefer the look of the gnome one
+    # services.greetd = {
+    #   enable = true;
+    #   settings = {
+    #     default_session = {
+    #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+    #       user = "greeter";
+    #     };
+    #   };
+    # };
+    services.displayManager.gdm.enable = true;
+    services.displayManager.gdm.wayland = true;
     environment.systemPackages = with pkgs; [
       rofi
       playerctl
