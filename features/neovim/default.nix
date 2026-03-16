@@ -1,5 +1,5 @@
 {inputs, ...}: {
   flake.nixosModules.neovim = {
-    imports = [inputs.mikoshi-neovim.nixosModules.default];
+    imports = [inputs.nvf.nixosModules.default ./system.nix];
   };
 }
