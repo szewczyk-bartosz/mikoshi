@@ -13,12 +13,16 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    mikoshi-neovim.url = "github:szewczyk-bartosz/mikoshi-neovim";
   };
 
   outputs = inputs @ {flake-parts, ...}:
