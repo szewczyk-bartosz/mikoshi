@@ -1,32 +1,9 @@
 {
   osConfig,
   lib,
-  inputs,
   ...
 }: {
-  imports = [inputs.hyprshell.homeModules.hyprshell];
   config = lib.mkIf osConfig.mikoshi.hyprland.enable {
-    programs.hyprshell = {
-      enable = true;
-      systemd.enable = true;
-      settings = {
-        windows = {
-          enable = true;
-          switch = {
-            enable = true;
-            modifier = "alt";
-          };
-          overview = {
-            enable = true;
-            key = "super_l";
-            launcher = {
-              max_items = 6;
-            };
-          };
-        };
-      };
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
@@ -49,7 +26,7 @@
           "lxqt-polkit"
           "waybar"
           "swaync"
-          "nm-applet"
+          "sleep 2; nm-applet --indicator"
         ];
 
         input = {
@@ -136,6 +113,7 @@
           "$mainMod SHIFT, O, exit"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating"
+          "$mainMod, SPACE, exec, rofi -show drun"
           # focus
           "$mainMod, H, movefocus, l"
           "$mainMod, J, movefocus, d"
