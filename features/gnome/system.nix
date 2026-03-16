@@ -14,7 +14,7 @@
     time.timeZone = lib.mkDefault "Europe/London";
 
     environment.variables = {
-      GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}";
+      GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gnomeExtensions.pop-shell}/share/gnome-shell/extensions/pop-shell@system76.com/schemas";
     };
 
     programs.dconf.enable = true;
