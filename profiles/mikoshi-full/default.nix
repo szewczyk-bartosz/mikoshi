@@ -5,6 +5,7 @@
       audio
       network
       ghostty
+      stylix
       tmux
       fonts
       icons

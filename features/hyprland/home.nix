@@ -48,7 +48,7 @@
           layout = "dwindle";
         };
 
-        decoration = {
+        decoration = lib.mkDefault {
           rounding = 10;
           rounding_power = 2;
           active_opacity = 1.0;
