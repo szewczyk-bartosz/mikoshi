@@ -15,7 +15,7 @@
 
           modules-left = ["hyprland/workspaces"];
           modules-center = ["clock"];
-          modules-right = ["tray" "network" "pulseaudio" "custom/power"];
+          modules-right = ["tray" "pulseaudio" "custom/power"];
 
           "hyprland/workspaces" = {
             format = "{id}";
@@ -34,16 +34,10 @@
             spacing = 8;
           };
 
-          network = {
-            format-wifi = "{icon}";
-            format-ethernet = "󰈀";
-            format-disconnected = "󰖪";
-            format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
-          };
-
           pulseaudio = {
             format = "{icon} {volume}%";
             format-muted = "󰝟 Muted";
+            on-click = "pavucontrol";
             format-icons = {
               default = ["󰕿" "󰖀" "󰕾"];
             };
