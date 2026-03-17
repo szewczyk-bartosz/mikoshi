@@ -32,7 +32,7 @@
         ./features/tmux
 
         ./profiles/gnomoshi
-        ./profiles/mikoshi-full
+        ./profiles/hyprlandoshi
       ];
     };
 }

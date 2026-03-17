@@ -1,5 +1,5 @@
 {config, ...}: {
-  flake.nixosModules.mikoshiFull = {
+  flake.nixosModules.hyprlandoshi = {
     imports = with config.flake.nixosModules; [
       hyprland
       audio
