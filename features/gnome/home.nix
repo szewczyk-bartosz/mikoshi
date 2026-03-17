@@ -43,16 +43,6 @@
       tile-move-down = ["<Control><Alt>j"];
       tile-move-up = ["<Control><Alt>k"];
       tile-move-right = ["<Control><Alt>l"];
-
-      tile-move-to-workspace-1 = ["<Control><Alt>1"];
-      tile-move-to-workspace-2 = ["<Control><Alt>2"];
-      tile-move-to-workspace-3 = ["<Control><Alt>3"];
-      tile-move-to-workspace-4 = ["<Control><Alt>4"];
-      tile-move-to-workspace-5 = ["<Control><Alt>5"];
-      tile-move-to-workspace-6 = ["<Control><Alt>6"];
-      tile-move-to-workspace-7 = ["<Control><Alt>7"];
-      tile-move-to-workspace-8 = ["<Control><Alt>8"];
-      tile-move-to-workspace-9 = ["<Control><Alt>9"];
     };
 
     "org/gnome/desktop/wm/keybindings" = {
@@ -65,6 +55,16 @@
       switch-to-workspace-7 = ["<Alt>7"];
       switch-to-workspace-8 = ["<Alt>8"];
       switch-to-workspace-9 = ["<Alt>9"];
+
+      move-to-workspace-1 = ["<Alt><Shift>1"];
+      move-to-workspace-2 = ["<Alt><Shift>2"];
+      move-to-workspace-3 = ["<Alt><Shift>3"];
+      move-to-workspace-4 = ["<Alt><Shift>4"];
+      move-to-workspace-5 = ["<Alt><Shift>5"];
+      move-to-workspace-6 = ["<Alt><Shift>6"];
+      move-to-workspace-7 = ["<Alt><Shift>7"];
+      move-to-workspace-8 = ["<Alt><Shift>8"];
+      move-to-workspace-9 = ["<Alt><Shift>9"];
     };
   };
 }
