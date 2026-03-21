@@ -19,6 +19,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
+        ./features/gc
         ./features/ghostty
         ./features/stylix
         ./features/audio
