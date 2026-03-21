@@ -3,6 +3,7 @@
     imports = with config.flake.nixosModules; [
       audio
       network
+      gc
       ghostty
       gnome
       tmux

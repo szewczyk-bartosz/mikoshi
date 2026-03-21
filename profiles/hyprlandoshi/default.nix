@@ -4,6 +4,7 @@
       hyprland
       audio
       network
+      gc
       ghostty
       stylix
       tmux
