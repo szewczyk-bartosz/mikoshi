@@ -10,5 +10,10 @@
       type = lib.types.str;
       description = "the keyboard layout to set";
     };
+    mainMod = lib.mkOption {
+      default = "Alt";
+      type = lib.types.str;
+      description = "Modifier key to use for keybindings (GSettings format, e.g. Alt, Super, Control)";
+    };
   };
 }
