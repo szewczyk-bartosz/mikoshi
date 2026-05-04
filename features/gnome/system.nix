@@ -18,7 +18,7 @@
     };
 
     programs.dconf.enable = true;
-    services.xserver.xkb.layout = lib.mkDefault config.mikoshi.gnome.kb;
+    services.xserver.xkb.layout = lib.mkDefault (lib.concatStringsSep "," config.mikoshi.gnome.kb);
 
     services.displayManager.gdm.enable = true;
     services.xserver.enable = true;

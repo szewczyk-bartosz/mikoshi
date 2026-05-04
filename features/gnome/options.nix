@@ -6,9 +6,9 @@
       description = "Whether to enable Mikoshi's gnome setup";
     };
     kb = lib.mkOption {
-      default = "gb";
-      type = lib.types.str;
-      description = "the keyboard layout to set";
+      default = ["gb"];
+      type = lib.types.listOf lib.types.str;
+      description = "the keyboard layouts to set";
     };
     mainMod = lib.mkOption {
       default = "Alt";

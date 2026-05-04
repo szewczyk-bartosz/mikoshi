@@ -15,7 +15,7 @@
     };
 
     "org/gnome/desktop/input-sources" = {
-      sources = [(lib.hm.gvariant.mkTuple ["xkb" "${osConfig.mikoshi.gnome.kb}"])];
+      sources = map (layout: lib.hm.gvariant.mkTuple ["xkb" layout]) osConfig.mikoshi.gnome.kb;
     };
     "org/gnome/shell/extensions/pop-shell" = {
       show-title = false; # Disable launcher
