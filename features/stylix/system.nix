@@ -8,7 +8,7 @@
   config = lib.mkIf config.mikoshi.stylix.enable {
     stylix = {
       # Disable stylix for neovim as its not that good at doing it
-      targets.neovim.enable = false;
+      targets.nvf.enable = false;
 
       enable = true;
       base16Scheme = lib.mkDefault (
