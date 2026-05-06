@@ -390,8 +390,8 @@
 
       theme = {
         enable = lib.mkOverride 150 true;
-        name = lib.mkOverride 150 "tokyonight";
-        style = lib.mkOverride 150 "night";
+        name = lib.mkOverride 150 "catppuccin";
+        style = lib.mkOverride 150 "mocha";
       };
     };
   };
