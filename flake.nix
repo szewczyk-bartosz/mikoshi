@@ -13,6 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    bmd = {
+      url = "github:szewczyk-bartosz/my-markdown-lang";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
@@ -31,6 +36,7 @@
         ./features/network
         ./features/steam
         ./features/tmux
+        ./features/bmd
 
         ./profiles/gnomoshi
         ./profiles/hyprlandoshi

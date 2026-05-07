@@ -68,6 +68,26 @@
         "type": "github"
       }
     },
+    "bmd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778168264,
+        "narHash": "sha256-vqa+bXi+I+ojW9pxN4YAfAHB/LussgPa5bPPDafxEbM=",
+        "owner": "szewczyk-bartosz",
+        "repo": "my-markdown-lang",
+        "rev": "3fd259e3bc4a3401d1a1a5f4bc13ad5ef72e90d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "szewczyk-bartosz",
+        "repo": "my-markdown-lang",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -312,6 +332,7 @@
     },
     "root": {
       "inputs": {
+        "bmd": "bmd",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",
