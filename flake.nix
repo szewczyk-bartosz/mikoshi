@@ -38,8 +38,9 @@
         ./features/tmux
         ./features/bmd
 
-        ./profiles/gnomoshi
-        ./profiles/hyprlandoshi
+        ./profiles/mikoshi-gnome
+        ./profiles/mikoshi-hyprland
+        ./profiles/mikoshi-plasma
       ];
     };
 }

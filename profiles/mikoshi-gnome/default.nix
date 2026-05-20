@@ -1,5 +1,5 @@
 {config, ...}: {
-  flake.nixosModules.gnomoshi = {
+  flake.nixosModules.mikoshi-gnome = {
     imports = with config.flake.nixosModules; [
       audio
       network
