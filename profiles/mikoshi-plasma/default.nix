@@ -11,7 +11,7 @@
       icons
       steam
       neovim
-      # TODO: Add plasma feature
+      plasma
     ];
   };
 }

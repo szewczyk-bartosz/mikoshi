@@ -12,10 +12,11 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     bmd = {
-      url = "github:szewczyk-bartosz/my-markdown-lang";
+      url = "github:szewczyk-bartosz/engramware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -30,6 +31,7 @@
         ./features/audio
         ./features/fonts
         ./features/gnome
+        ./features/plasma
         ./features/hyprland
         ./features/icons
         ./features/neovim
