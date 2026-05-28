@@ -15,10 +15,16 @@
       description = "A list of Hyprland monitor configurations (format: 'name,resolution,position,scale')";
     };
 
-    keyboardLayout = lib.mkOption {
+    kb = lib.mkOption {
       default = "gb";
       type = lib.types.str;
       description = "Keyboard layout to use";
+    };
+
+    launcherKeybind = lib.mkOption {
+      default = "SUPER, SUPER_L";
+      type = lib.types.str;
+      description = "The keybind for launching wofi";
     };
 
     mainMod = lib.mkOption {

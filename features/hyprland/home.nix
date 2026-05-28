@@ -33,8 +33,8 @@
         ];
 
         input = {
-          kb_layout = osConfig.mikoshi.hyprland.keyboardLayout;
-          kb_options = "ctrl:nocaps";
+          kb_layout = osConfig.mikoshi.hyprland.kb;
+          kb_options = "ctrl:nocaps,grp:win_space_toggle";
           follow_mouse = 1;
           sensitivity = 0;
           touchpad = {
@@ -116,7 +116,7 @@
           "$mainMod SHIFT, O, exit"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating"
-          "$mainMod, SPACE, exec, wofi --show drun"
+          "${osConfig.mikoshi.hyprland.launcherKeybind}, exec, wofi --show drun"
           # focus
           "$mainMod, H, movefocus, l"
           "$mainMod, J, movefocus, d"
