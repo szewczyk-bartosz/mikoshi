@@ -3,7 +3,48 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  daemon = pkgs.writers.writePython3Bin "hyprland-alt-tab-daemon" {} ''
+    import socket
+    import os
+    import sys
+
+
+    def get_socket_path():
+        sig = os.environ.get("HYPRLAND_INSTANCE_SIGNATURE")
+        if not sig:
+            sys.exit(1)
+        runtime_dir = os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")
+        return f"{runtime_dir}/hypr/{sig}/.socket2.sock"
+
+
+    def main():
+        state_file = os.path.expanduser("~/.cache/hypr-altworkspace")
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.connect(get_socket_path())
+        current = "1"
+        with open(state_file, "w") as f:
+            f.write("1")
+        buf = ""
+        while True:
+            buf += sock.recv(4096).decode("utf-8", errors="ignore")
+            while "\n" in buf:
+                line, buf = buf.split("\n", 1)
+                if line.startswith("workspace>>"):
+                    new = line.split(">>")[1].strip()
+                    if new != current:
+                        with open(state_file, "w") as f:
+                            f.write(current)
+                        current = new
+
+
+    main()
+  '';
+  switcher = pkgs.writeShellScriptBin "hyprland-alt-tab" ''
+    prev=$(cat ~/.cache/hypr-altworkspace 2>/dev/null || echo "1")
+    hyprctl dispatch workspace "$prev"
+  '';
+in {
   imports = [./options.nix];
   config = lib.mkIf config.mikoshi.hyprland.enable {
     programs.hyprland.enable = true;
@@ -23,7 +64,9 @@
     services.displayManager.gdm.enable = true;
     services.displayManager.gdm.wayland = true;
     environment.systemPackages = with pkgs; [
-      rofi
+      daemon
+      switcher
+      wofi
       playerctl
       pavucontrol
       wlogout
@@ -32,6 +75,9 @@
       swaynotificationcenter
       networkmanagerapplet
       lxqt.lxqt-policykit
+      grimblast
+      nautilus
+      swayosd
     ];
 
     xdg.portal = {

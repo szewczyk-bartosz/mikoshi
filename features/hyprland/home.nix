@@ -16,6 +16,7 @@
         env = [
           "XCURSOR_SIZE,24"
           "HYPRCURSOR_SIZE,24"
+          "XCURSOR_THEME,Adwaita"
           "NIXOS_OZONE_WL,1"
           "XDG_CURRENT_DESKTOP,Hyprland"
           "XDG_SESSION_TYPE,wayland"
@@ -27,6 +28,8 @@
           "waybar"
           "swaync"
           "sleep 2; nm-applet --indicator"
+          "swayosd-server"
+          "hyprland-alt-tab-daemon"
         ];
 
         input = {
@@ -113,7 +116,7 @@
           "$mainMod SHIFT, O, exit"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating"
-          "$mainMod, SPACE, exec, rofi -show drun"
+          "$mainMod, SPACE, exec, wofi --show drun"
           # focus
           "$mainMod, H, movefocus, l"
           "$mainMod, J, movefocus, d"
@@ -145,6 +148,12 @@
           "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
           "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
           "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
+
+          # screenshot
+          "$mainMod SHIFT, S, exec, grimblast copysave area ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+
+          # Alt tab maybe?
+          "ALT, Tab, exec, hyprland-alt-tab"
         ];
 
         bindm = [
@@ -152,13 +161,21 @@
           "$mainMod, mouse:273, resizewindow"
         ];
 
+        # bindel = [
+        #   ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        #   ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        #   ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        #   ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        #   ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
+        #   ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+        # ];
         bindel = [
-          ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-          ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+          ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+          ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+          ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+          ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
+          ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+          ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
         ];
 
         bindl = [

@@ -54,7 +54,7 @@
       style = ''
         * {
           font-family: monospace;
-          font-size: 13px;
+          font-size: 16px;
           border: none;
           border-radius: 0;
           padding: 0;
