@@ -75,16 +75,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1778168264,
-        "narHash": "sha256-vqa+bXi+I+ojW9pxN4YAfAHB/LussgPa5bPPDafxEbM=",
+        "lastModified": 1779749670,
+        "narHash": "sha256-fGJWnfXNS7mPXuLNU6PpXsPRwHSvWtwZl1ZK3EiGsTY=",
         "owner": "szewczyk-bartosz",
-        "repo": "my-markdown-lang",
-        "rev": "3fd259e3bc4a3401d1a1a5f4bc13ad5ef72e90d0",
+        "repo": "engramware",
+        "rev": "b61329995fbaef85eecd2ce7a1c10a3de448660d",
         "type": "github"
       },
       "original": {
         "owner": "szewczyk-bartosz",
-        "repo": "my-markdown-lang",
+        "repo": "engramware",
         "type": "github"
       }
     },
