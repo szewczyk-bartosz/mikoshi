@@ -21,6 +21,12 @@
       description = "Keyboard layout to use";
     };
 
+    kbOptions = lib.mkOption {
+      default = "ctrl:nocaps,grp:win_space_toggle";
+      type = lib.types.str;
+      description = "XKB keyboard options (e.g. 'ctrl:nocaps,grp:win_space_toggle')";
+    };
+
     launcherKeybind = lib.mkOption {
       default = "SUPER, SUPER_L";
       type = lib.types.str;

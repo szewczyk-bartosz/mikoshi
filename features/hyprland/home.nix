@@ -34,7 +34,7 @@
 
         input = {
           kb_layout = osConfig.mikoshi.hyprland.kb;
-          kb_options = "ctrl:nocaps,grp:win_space_toggle";
+          kb_options = osConfig.mikoshi.hyprland.kbOptions;
           follow_mouse = 1;
           sensitivity = 0;
           touchpad = {
