@@ -61,6 +61,12 @@ in {
     #     };
     #   };
     # };
+
+    console = {
+      font = lib.mkDefault "Lat2-Terminus16";
+      useXkbConfig = lib.mkDefault true;
+    };
+
     services.displayManager.gdm.enable = true;
     environment.systemPackages = with pkgs; [
       daemon
