@@ -28,7 +28,6 @@
           "waybar"
           "swaync"
           "sleep 2; nm-applet --indicator"
-          "swayosd-server"
           "hyprland-alt-tab-daemon"
         ];
 
