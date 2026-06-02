@@ -62,6 +62,12 @@ in {
     #   };
     # };
 
+    systemd.user.services.swayosd-server = {
+      description = "SwayOSD Server";
+      after = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
+      serviceConfig.ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
+    };
     console = {
       font = lib.mkDefault "Lat2-Terminus16";
       useXkbConfig = lib.mkDefault true;
