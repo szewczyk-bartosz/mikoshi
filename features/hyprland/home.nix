@@ -29,6 +29,7 @@
           "swaync"
           "sleep 2; nm-applet --indicator"
           "hyprland-alt-tab-daemon"
+          "systemctl --user start graphical-session.target"
         ];
 
         input = {
