@@ -10,7 +10,6 @@
       stylix
       fonts
       icons
-      steam
       neovim
     ];
   };

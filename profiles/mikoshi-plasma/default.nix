@@ -9,7 +9,6 @@
       stylix
       fonts
       icons
-      steam
       neovim
       plasma
     ];
