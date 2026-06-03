@@ -11,7 +11,6 @@
       fonts
       icons
       neovim
-      steam
     ];
   };
 }
