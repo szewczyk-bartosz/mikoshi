@@ -48,6 +48,7 @@ in {
   imports = [./options.nix];
   config = lib.mkIf config.mikoshi.hyprland.enable {
     programs.hyprland.enable = true;
+    programs.hyprland.withUWSM = true;
     home-manager = {
       sharedModules = [./home.nix ./waybar.nix];
     };
@@ -73,15 +74,15 @@ in {
       useXkbConfig = lib.mkDefault true;
     };
 
-    # services.greetd = {
-    #   enable = true;
-    #   settings = {
-    #     default_session = {
-    #       command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-    #       user = "greeter";
-    #     };
-    #   };
-    # };
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
+          user = "greeter";
+        };
+      };
+    };
 
     environment.systemPackages = with pkgs; [
       daemon
