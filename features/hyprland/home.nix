@@ -6,6 +6,7 @@
   config = lib.mkIf osConfig.mikoshi.hyprland.enable {
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang";
       settings = {
         "$mainMod" = osConfig.mikoshi.hyprland.mainMod;
         "$terminal" = lib.getExe osConfig.mikoshi.hyprland.terminal;
@@ -101,7 +102,6 @@
         };
 
         dwindle = {
-          pseudotile = false;
           preserve_split = true;
         };
 
