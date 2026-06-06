@@ -15,6 +15,12 @@
       description = "A list of Hyprland monitor configurations (format: 'name,resolution,position,scale')";
     };
 
+    wallpaper = lib.mkOption {
+      default = null;
+      type = lib.types.nullOr lib.types.path;
+      description = "Path to wallpaper image file";
+    };
+
     kb = lib.mkOption {
       default = "gb";
       type = lib.types.str;
