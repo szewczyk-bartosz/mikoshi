@@ -126,7 +126,7 @@
           "$mainMod SHIFT, O, exit"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating"
-          "${osConfig.mikoshi.hyprland.launcherKeybind}, exec, wofi --show drun"
+          "${osConfig.mikoshi.hyprland.launcherKeybind}, exec, pkill wofi || wofi --show drun"
           # focus
           "$mainMod, H, movefocus, l"
           "$mainMod, J, movefocus, d"
