@@ -63,6 +63,14 @@ in {
     #   };
     # };
 
+    systemd.user.services.hyprpaper = lib.mkIf (config.mikoshi.hyprland.wallpaper != null) {
+      description = "Hyprland wallpaper service";
+      after = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
+      bindsTo = ["graphical-session.target"];
+      serviceConfig.ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
+    };
+
     systemd.user.services.swayosd-server = {
       description = "SwayOSD Server";
       after = ["graphical-session.target"];

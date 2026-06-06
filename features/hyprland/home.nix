@@ -4,6 +4,15 @@
   ...
 }: {
   config = lib.mkIf osConfig.mikoshi.hyprland.enable {
+    xdg.configFile."hypr/hyprpaper.conf" = lib.mkIf (osConfig.mikoshi.hyprland.wallpaper != null) {
+      text = ''
+        wallpaper {
+          monitor =
+          path = ${osConfig.mikoshi.hyprland.wallpaper}
+          fit_mode = cover
+        }
+      '';
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "hyprlang";
