@@ -167,8 +167,8 @@
         ];
 
         bindm = [
-          "${osConfig.mikoshi.hyprland.launcherKeybind}, mouse:272, movewindow"
-          "${osConfig.mikoshi.hyprland.launcherKeybind}, mouse:273, resizewindow"
+          "SUPER, mouse:272, movewindow"
+          "SUPER, mouse:273, resizewindow"
         ];
 
         # bindel = [
