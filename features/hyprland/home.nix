@@ -167,8 +167,8 @@
         ];
 
         bindm = [
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
+          "${osConfig.mikoshi.hyprland.launcherKeybind}, mouse:272, movewindow"
+          "${osConfig.mikoshi.hyprland.launcherKeybind}, mouse:273, resizewindow"
         ];
 
         # bindel = [
