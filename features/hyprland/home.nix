@@ -187,10 +187,9 @@
           ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
           ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
         ];
-        windowrulev2 = [
-          "float, class:^(steam_app_.*)$"
-          "fullscreen, class:^(steam_app_.*)$"
-          "center, class:^(steam_app_.*)$"
+        windowrule = [
+          "match:class steam_app_.*, float on, fullscreen on"
+          "match:class steam_app_238960, float on, fullscreen on"
         ];
         bindl = [
           ", XF86AudioNext, exec, playerctl next"
