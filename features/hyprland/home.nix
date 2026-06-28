@@ -62,6 +62,10 @@
           layout = "dwindle";
         };
 
+        render = {
+          direct_scanout = 0;
+        };
+
         decoration = lib.mkDefault {
           rounding = 10;
           rounding_power = 2;
@@ -74,10 +78,10 @@
             color = "rgba(1a1a1aee)";
           };
           blur = {
-            enabled = true;
-            size = 3;
-            passes = 1;
-            vibrancy = 0.1696;
+            enabled = false;
+            # size = 3;
+            # passes = 1;
+            # vibrancy = 0.1696;
           };
         };
 
@@ -124,7 +128,7 @@
           "$mainMod, RETURN, exec, $terminal"
           "$mainMod SHIFT, Q, killactive"
           "$mainMod SHIFT, O, exit"
-          "$mainMod, E, exec, $fileManager"
+          # "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating"
           "${osConfig.mikoshi.hyprland.launcherKeybind}, exec, pkill wofi || wofi --show drun"
           # focus
@@ -186,10 +190,6 @@
           ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
           ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
           ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
-        ];
-        windowrule = [
-          "match:class steam_app_.*, float on, fullscreen on"
-          "match:class steam_app_238960, float on, fullscreen on"
         ];
         bindl = [
           ", XF86AudioNext, exec, playerctl next"
