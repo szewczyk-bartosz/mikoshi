@@ -8,6 +8,7 @@
     services.pipewire = {
       enable = true;
       pulse.enable = true;
+      pipewire.enable = true;
     };
   };
 }
