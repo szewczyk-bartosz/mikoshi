@@ -4,6 +4,6 @@
     config,
     ...
   }: {
-    networking.networkmanager.enable = true;
+    networking.networkmanager.enable = lib.mkDefault true;
   };
 }
