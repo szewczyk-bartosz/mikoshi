@@ -8,6 +8,8 @@
     modules = [
       config.flake.modules.nixos.base
       config.flake.modules.nixos.nvim
+      config.flake.modules.nixos.bmd
+
       {
         mikoshi.users = ["testuser"];
         users.users.testuser.isNormalUser = true;
