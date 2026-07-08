@@ -9,6 +9,7 @@
       config.flake.modules.nixos.base
       config.flake.modules.nixos.nvim
       config.flake.modules.nixos.bmd
+      config.flake.modules.nixos.graphical
 
       {
         mikoshi.users = ["testuser"];
