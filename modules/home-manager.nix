@@ -17,4 +17,16 @@ in {
       imports = [hm.base];
     });
   };
+  flake.modules.nixos.graphical = {
+    config,
+    lib,
+    ...
+  }: {
+    imports = [inputs.home-manager.nixosModules.home-manager];
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.users = lib.genAttrs config.mikoshi.users (name: {
+      imports = [hm.graphical];
+    });
+  };
 }
