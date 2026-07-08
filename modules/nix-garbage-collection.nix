@@ -1,4 +1,3 @@
-# modules/gc.nix
 {...}: {
   flake.modules.nixos.base = {lib, ...}: {
     nix.gc = {
