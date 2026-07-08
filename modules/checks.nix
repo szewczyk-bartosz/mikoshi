@@ -10,6 +10,7 @@
       config.flake.modules.nixos.nvim
       config.flake.modules.nixos.bmd
       config.flake.modules.nixos.graphical
+      config.flake.modules.nixos.gaming
 
       {
         mikoshi.users = ["testuser"];
