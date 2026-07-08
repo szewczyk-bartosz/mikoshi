@@ -7,6 +7,7 @@
     system = "x86_64-linux";
     modules = [
       config.flake.modules.nixos.base
+      config.flake.modules.nixos.nvim
       {
         mikoshi.users = ["testuser"];
         users.users.testuser.isNormalUser = true;
