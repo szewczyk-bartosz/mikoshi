@@ -8,6 +8,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    import-tree.url = "github:denful/import-tree";
     stylix = {
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,27 +28,5 @@
   };
 
   outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux"];
-      imports = [
-        ./features/gc
-        ./features/ghostty
-        ./features/stylix
-        ./features/audio
-        ./features/fonts
-        ./features/gnome
-        ./features/plasma
-        ./features/hyprland
-        ./features/icons
-        ./features/neovim
-        ./features/network
-        ./features/steam
-        ./features/tmux
-        ./features/bmd
-
-        ./profiles/mikoshi-gnome
-        ./profiles/mikoshi-hyprland
-        ./profiles/mikoshi-plasma
-      ];
-    };
+    flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 }
