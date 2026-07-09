@@ -1,32 +1,48 @@
 {
   config,
   inputs,
+  lib,
   ...
-}: {
-  flake.nixosConfigurations.ci-test = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    modules = [
-      config.flake.modules.nixos.nvim
-      config.flake.modules.nixos.bmd
-      config.flake.modules.nixos.graphical
-      config.flake.modules.nixos.gaming
-
-      {
-        mikoshi.users = ["testuser"];
-        users.users.testuser.isNormalUser = true;
-        home-manager.users.testuser.home.stateVersion = "25.05";
-        system.stateVersion = "25.05";
-        boot.isContainer = true;
+}: let
+  testSystems = lib.genAttrs (lib.attrNames config.flake.modules.nixos) (
+    name:
+      inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          config.flake.modules.nixos.${name}
+          (
+            {
+              options,
+              lib,
+              ...
+            }: {
+              config =
+                {
+                  system.stateVersion = "26.05";
+                  boot.isContainer = true;
+                  users.users.testuser.isNormalUser = true;
+                }
+                // lib.optionalAttrs (options ? mikoshi) {mikoshi.users = ["testuser"];}
+                // lib.optionalAttrs (options ? home-manager) {home-manager.users.testuser.home.stateVersion = "26.05";};
+            }
+          )
+        ];
       }
-    ];
-  };
-
-  perSystem = {pkgs, ...}: {
-    checks.mikoshi-eval-only = pkgs.runCommand "mikoshi-eval-only" {} ''
-      echo ${
-        builtins.unsafeDiscardOutputDependency
-        config.flake.nixosConfigurations.ci-test.config.system.build.toplevel.drvPath
-      } > $out
-    '';
+  );
+in {
+  flake.nixosConfigurations = testSystems;
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    checks = lib.genAttrs (lib.attrNames config.flake.modules.nixos) (name:
+      pkgs.runCommand "${name}" {}
+      ''
+        echo ${
+          builtins.unsafeDiscardOutputDependency
+          testSystems.${name}.config.system.build.toplevel.drvPath
+        } > $out
+      '');
   };
 }
