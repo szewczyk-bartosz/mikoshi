@@ -244,6 +244,18 @@
             action = "<C-w>l";
             desc = "Move to right split";
           }
+          {
+            key = "<leader>sh";
+            mode = "n";
+            action = "<C-w>s";
+            desc = "Split horizontally";
+          }
+          {
+            key = "<leader>sv";
+            mode = "n";
+            action = "<C-w>v";
+            desc = "Split vertically";
+          }
         ];
 
         autocomplete.blink-cmp = {
