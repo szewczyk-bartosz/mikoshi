@@ -17,8 +17,8 @@
     cursorShaders = pkgs.fetchFromGitHub {
       owner = "sahaj-b";
       repo = "ghostty-cursor-shaders";
-      rev = "0a274beac8b93ee6ce6b94402b7313a0417b8e382";
-      hash = lib.fakeHash;
+      rev = "0a274beac8b93ee6ce6b94402b7313a0417b8e38";
+      hash = "sha256-B7B6K7Ee4uJlW8zzLP3ILgddnbcIQyNimY+rVllzbR0=";
     };
   in {
     config = {
@@ -27,7 +27,7 @@
         settings = {
           font-family = lib.mkDefault "JetBrainsMono Nerd Font";
           font-size = lib.mkDefault 12;
-          theme = lib.mkDefault "catppuccin-mocha";
+          theme = lib.mkDefault "Catppuccin Mocha";
 
           cursor-style = lib.mkDefault "bar";
           cursor-style-blink = lib.mkDefault false;
