@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   flake.modules.nixos.base = {
     lib,
     config,
