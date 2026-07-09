@@ -4,11 +4,9 @@
     lib,
     ...
   }: {
-    config = {
-      environment.systemPackages = with pkgs; [
-        ghostty
-      ];
-    };
+    environment.systemPackages = with pkgs; [
+      ghostty
+    ];
   };
 
   flake.modules.homeManager.graphical = {
@@ -27,17 +25,18 @@
       programs.ghostty = {
         enable = true;
         settings = {
-          font-family = "JetBrainsMono Nerd Font";
-          font-size = 12;
+          font-family = lib.mkDefault "JetBrainsMono Nerd Font";
+          font-size = lib.mkDefault 12;
+          theme = lib.mkDefault "catppuccin-mocha";
 
-          cursor-style = "bar";
-          cursor-style-blink = false;
+          cursor-style = lib.mkDefault "bar";
+          cursor-style-blink = lib.mkDefault false;
 
-          custom-shader = ["${cursorShaders}/cursor_warp.glsl" "${cursorShaders}/ripple_cursor.glsl"];
-          custom-shader-animation = "always";
+          custom-shader = lib.mkDefault ["${cursorShaders}/cursor_warp.glsl" "${cursorShaders}/ripple_cursor.glsl"];
+          custom-shader-animation = lib.mkDefault "always";
 
-          window-padding-x = 8;
-          window-padding-y = 8;
+          window-padding-x = lib.mkDefault 8;
+          window-padding-y = lib.mkDefault 8;
         };
       };
     };
