@@ -6,7 +6,6 @@
   flake.nixosConfigurations.ci-test = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
-      config.flake.modules.nixos.base
       config.flake.modules.nixos.nvim
       config.flake.modules.nixos.bmd
       config.flake.modules.nixos.graphical
