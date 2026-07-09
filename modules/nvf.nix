@@ -5,6 +5,7 @@
     ...
   }: {
     imports = [inputs.nvf.nixosModules.default];
+    environment.variables.EDITOR = "nvim";
     programs.nvf = {
       enable = true;
       settings.vim = {
