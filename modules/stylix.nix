@@ -12,7 +12,10 @@
         # Disable stylix for neovim as its not that good at doing it
         targets.nvf.enable = false;
 
-        enable = true;
+        # Stylix disabled for now, I feel that it will require some hand tuning
+        # and to be honest, I feel that the full system having a consistent non-neutral
+        # colour theme feels a bit... cheap? weird?
+        enable = false;
         base16Scheme = lib.mkDefault (
           if builtins.pathExists ./themes/${config.mikoshi.stylix.base16Scheme}.yaml
           then ./themes/${config.mikoshi.stylix.base16Scheme}.yaml
@@ -23,7 +26,7 @@
     };
     options.mikoshi.stylix = {
       base16Scheme = lib.mkOption {
-        default = "eris";
+        default = "catppuccin-mocha";
         type = lib.types.str;
         description = "the base 16 theme to use";
       };
