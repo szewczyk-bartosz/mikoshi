@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Command: nix flake check"
+nix flake check
+
+echo "✓ all checks passed"
