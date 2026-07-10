@@ -14,7 +14,7 @@ in {
     imports = [inputs.home-manager.nixosModules.home-manager];
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users = hmFor config.mikoshi.users hmClass.base;
+    home-manager.users = hmFor config.mikoshi.meta.users hmClass.base;
 
     console = {
       font = lib.mkDefault "Lat2-Terminus16";
@@ -22,6 +22,6 @@ in {
     };
     i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
     time.timeZone = lib.mkDefault "Europe/London";
-    services.xserver.xkb.layout = lib.mkDefault (lib.concatStringsSep "," config.mikoshi.keyboardLayouts);
+    services.xserver.xkb.layout = lib.mkDefault (lib.concatStringsSep "," config.mikoshi.meta.keyboardLayouts);
   };
 }
