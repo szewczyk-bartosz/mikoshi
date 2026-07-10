@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.nixos.nvim = {
+  flake.modules.nixos.base = {
     lib,
     pkgs,
     ...
