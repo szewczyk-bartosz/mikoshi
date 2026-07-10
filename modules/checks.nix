@@ -22,7 +22,7 @@
                   boot.isContainer = true;
                   users.users.testuser.isNormalUser = true;
                 }
-                // lib.optionalAttrs (options ? mikoshi) {mikoshi.users = ["testuser"];}
+                // lib.optionalAttrs (options ? mikoshi) {mikoshi.meta.users = ["testuser"];}
                 // lib.optionalAttrs (options ? home-manager) {home-manager.users.testuser.home.stateVersion = "26.05";};
             }
           )

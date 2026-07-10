@@ -9,17 +9,9 @@ in {
     lib,
     ...
   }: {
-    options.mikoshi.gnome = {
-      mainMod = lib.mkOption {
-        default = "Alt";
-        type = lib.types.str;
-        description = "Modifier key to use for keybindings (GSettings format, e.g. Alt, Super, Control)";
-      };
-    };
-
     imports = [nixosClass.graphical];
     config = {
-      home-manager.users = hmFor config.mikoshi.users hmClass.gnome;
+      home-manager.users = hmFor config.mikoshi.meta.users hmClass.gnome;
       programs.dconf.enable = true;
       services.displayManager.gdm.enable = true;
       services.xserver.enable = true;
@@ -73,7 +65,7 @@ in {
         };
 
         "org/gnome/desktop/input-sources" = {
-          sources = map (layout: lib.hm.gvariant.mkTuple ["xkb" layout]) osConfig.mikoshi.keyboardLayouts;
+          sources = map (layout: lib.hm.gvariant.mkTuple ["xkb" layout]) osConfig.mikoshi.meta.keyboardLayouts;
         };
 
         "org/gnome/desktop/wm/keybindings" = {

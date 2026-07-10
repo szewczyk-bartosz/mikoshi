@@ -9,6 +9,6 @@ in {
     ...
   }: {
     imports = [nixosClass.base];
-    home-manager.users = hmFor config.mikoshi.users hmClass.graphical;
+    home-manager.users = hmFor config.mikoshi.meta.users hmClass.graphical;
   };
 }
