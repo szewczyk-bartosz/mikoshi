@@ -34,6 +34,8 @@ in {
         gnome-calculator
         gnomeExtensions.pop-shell
         loupe
+        adwaita-icon-theme
+        gnome-themes-extra
       ];
     };
   };
@@ -45,6 +47,25 @@ in {
     ...
   }: {
     config = {
+      gtk = {
+        enable = true;
+        theme.name = lib.mkDefault "adw-gtk3";
+        theme.package = lib.mkDefault pkgs.adw-gtk3;
+        iconTheme.name = lib.mkDefault "Adwaita";
+        iconTheme.package = lib.mkDefault pkgs.adwaita-icon-theme;
+      };
+      home.pointerCursor = lib.mkDefault {
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
+        size = 24;
+        gtk.enable = true;
+        x11.enable = true;
+      };
+      qt = {
+        enable = true;
+        platformTheme.name = lib.mkDefault "gtk3";
+        style.name = lib.mkDefault "adwaita";
+      };
       dconf.settings = {
         # Dark mode and normal scaling
         "org/gnome/desktop/interface" = {
