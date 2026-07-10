@@ -12,6 +12,13 @@ in {
     imports = [nixosClass.graphical];
     config = {
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.plasma;
+      services.desktopManager.plasma6.enable = true;
+      services.displayManager.sddm.enable = true;
+      services.desktopManager.plasma6.enableQt5Integration = true;
+
+      environment.plasma6.excludePackages = with pkgs.kdePackages; [
+        konsole # ghosty ftw
+      ];
     };
   };
 
