@@ -1,5 +1,10 @@
-{config, ...}: {
+{config, ...}: let
+  hmFor = config.flake.lib.hmFor;
+  hmClass = config.flake.modules.homeManager;
+  nixosClass = config.flake.modules.nixos;
+in {
   flake.modules.nixos.gnome = {
+    config,
     pkgs,
     lib,
     ...
@@ -12,8 +17,9 @@
       };
     };
 
-    imports = [config.flake.modules.nixos.graphical];
+    imports = [nixosClass.graphical];
     config = {
+      home-manager.users = hmFor config.mikoshi.users hmClass.gnome;
       programs.dconf.enable = true;
       services.displayManager.gdm.enable = true;
       services.xserver.enable = true;
