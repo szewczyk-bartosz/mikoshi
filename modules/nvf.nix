@@ -5,6 +5,7 @@
     ...
   }: {
     imports = [inputs.nvf.nixosModules.default];
+    nixpkgs.overlays = [inputs.neovim-nightly-overlay.overlays.default];
     environment.variables.EDITOR = "nvim";
     programs.nvf = {
       enable = true;
@@ -275,7 +276,7 @@
 
         lsp = {
           enable = true;
-          formatOnSave = true;
+          formatOnSave = false;
           # inlayHints.enable = true;
           mappings = {
             goToDefinition = "<leader>ld";
