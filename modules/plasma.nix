@@ -29,6 +29,7 @@ in {
     ...
   }: {
     config = {
+      home.packages = with pkgs; [ kdePackages.krohnkite ];
     };
   };
 }
