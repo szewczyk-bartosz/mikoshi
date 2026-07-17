@@ -50,22 +50,11 @@ in {
       hyprctl dispatch workspace "$prev"
     '';
   in {
+    imports = [nixosClass.graphical];
     config = {
+      home-manager.users = hmFor config.mikoshi.meta.users hmClass.hyprland;
       programs.hyprland.enable = true;
       programs.hyprland.withUWSM = true;
-      home-manager = {
-        sharedModules = [./home.nix ./waybar.nix];
-      };
-      # Not sure how I feel about this, this might be lighter but I think I prefer the look of the gnome one
-      # services.greetd = {
-      #   enable = true;
-      #   settings = {
-      #     default_session = {
-      #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
-      #       user = "greeter";
-      #     };
-      #   };
-      # };
 
       systemd.user.services.hyprpaper = lib.mkIf (config.mikoshi.hyprland.wallpaper != null) {
         description = "Hyprland wallpaper service";
