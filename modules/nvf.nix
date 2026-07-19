@@ -47,7 +47,10 @@
           };
         };
 
-        mini.statusline.enable = true;
+        mini = {
+          ai.enable = true;
+          statusline.enable = true;
+        };
 
         autopairs.nvim-autopairs.enable = true;
 
