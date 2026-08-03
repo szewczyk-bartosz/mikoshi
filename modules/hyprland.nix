@@ -351,7 +351,7 @@ in
                 on-click = "swaync-client -t";
               };
 
-              "battery" = lib.mkIf osConfig.mikoshi.waybar.battery.enable {
+              battery = lib.mkIf osConfig.mikoshi.waybar.battery.enable {
                 states = {
                   warning = 30;
                   critical = 15;
@@ -416,7 +416,7 @@ in
             }
 
             #clock,
-            #battery
+            #battery,
             #network,
             #pulseaudio,
             #custom-power {
