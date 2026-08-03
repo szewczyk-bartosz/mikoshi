@@ -370,29 +370,27 @@ in
               };
             };
 
-          "tray" = {
-            spacing = 8;
-          };
-
-          pulseaudio = {
-            format = "{icon} {volume}%";
-            format-muted = "󰝟 Muted";
-            on-click = "pavucontrol";
-            format-icons = {
-              default = [
-                "󰕿"
-                "󰖀"
-                "󰕾"
-              ];
+            "tray" = {
+              spacing = 8;
             };
-          };
 
-          };
-
-          "custom/power" = {
-            format = "⏻";
-            on-click = "wlogout";
-            tooltip = false;
+            pulseaudio = {
+              format = "{icon} {volume}%";
+              format-muted = "󰝟 Muted";
+              on-click = "pavucontrol";
+              format-icons = {
+                default = [
+                  "󰕿"
+                  "󰖀"
+                  "󰕾"
+                ];
+              };
+            };
+            "custom/power" = {
+              format = "⏻";
+              on-click = "wlogout";
+              tooltip = false;
+            };
           };
 
           style = ''
