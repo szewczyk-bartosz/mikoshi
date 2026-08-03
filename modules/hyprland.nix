@@ -416,6 +416,7 @@ in
             }
 
             #clock,
+            #battery
             #network,
             #pulseaudio,
             #custom-power {
