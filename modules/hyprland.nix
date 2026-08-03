@@ -324,7 +324,8 @@ in {
 
             modules-left = ["hyprland/workspaces"];
             modules-center = ["clock"];
-            modules-right = ["tray" "pulseaudio" "custom/power"];
+            modules-right = ["tray" "pulseaudio" "custom/power"] 
+               ++ lib.optionals osConfig.mikoshi.waybar.battery.enable ["battery"];
 
             "hyprland/workspaces" = {
               format = "{id}";
@@ -338,6 +339,20 @@ in {
               format = "{:%H:%M  %a %d %b}";
               on-click = "swaync-client -t";
             };
+
+           "battery" = lib.mkIf osConfig.mikoshi.waybar.battery.enable {
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+          format = "{capacity}% {icon}";
+          format-charging = "{capacity}% ⚡";
+          format-plugged = "{capacity}% ";
+          format-alt = "{time} {icon}";
+          format-icons = ["" "" "" "" ""];
+        };
+      };
+    };
 
             "tray" = {
               spacing = 8;
@@ -357,8 +372,6 @@ in {
               on-click = "wlogout";
               tooltip = false;
             };
-          };
-        };
 
         style = ''
           * {

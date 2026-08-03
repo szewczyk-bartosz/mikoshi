@@ -17,6 +17,9 @@
           description = "the keyboard layouts to set";
         };
       };
+      waybar = {
+        battery = lib.mkEnableOption "battery percentage display on waybar"
+      }
       gnome = {
         mainMod = lib.mkOption {
           default = "Alt";
