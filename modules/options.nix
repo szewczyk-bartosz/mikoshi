@@ -20,7 +20,7 @@
           };
         };
         waybar = {
-          battery = lib.mkEnableOption "battery percentage display on waybar";
+          battery.enable = lib.mkEnableOption "battery percentage display on waybar";
         };
         gnome = {
           mainMod = lib.mkOption {
