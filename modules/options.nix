@@ -22,6 +22,16 @@
         waybar = {
           battery.enable = lib.mkEnableOption "battery percentage display on waybar";
         };
+
+        stylix = {
+          enable = lib.mkEnableOption "stylix";
+          base16Scheme = lib.mkOption {
+            default = "catppuccin-mocha";
+            type = lib.types.str;
+            description = "the base 16 theme to use";
+          };
+        };
+
         gnome = {
           mainMod = lib.mkOption {
             default = "Alt";

@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.nixos.base = {
+  flake.modules.nixos.graphical = {
     lib,
     pkgs,
     config,
@@ -7,28 +7,18 @@
   }: {
     imports = [inputs.stylix.nixosModules.default];
 
-    config = {
+    config = lib.mkIf config.mikoshi.stylix.enable {
       stylix = {
         # Disable stylix for neovim as its not that good at doing it
         targets.nvf.enable = false;
 
-        # Stylix disabled for now, I feel that it will require some hand tuning
-        # and to be honest, I feel that the full system having a consistent non-neutral
-        # colour theme feels a bit... cheap? weird?
-        enable = false;
+        enable = true;
         base16Scheme = lib.mkDefault (
-          if builtins.pathExists ./themes/${config.mikoshi.stylix.base16Scheme}.yaml
-          then ./themes/${config.mikoshi.stylix.base16Scheme}.yaml
+          if builtins.pathExists ../themes/${config.mikoshi.stylix.base16Scheme}.yaml
+          then ../themes/${config.mikoshi.stylix.base16Scheme}.yaml
           else "${pkgs.base16-schemes}/share/themes/${config.mikoshi.stylix.base16Scheme}.yaml"
         );
         polarity = "dark";
-      };
-    };
-    options.mikoshi.stylix = {
-      base16Scheme = lib.mkOption {
-        default = "catppuccin-mocha";
-        type = lib.types.str;
-        description = "the base 16 theme to use";
       };
     };
   };
