@@ -8,9 +8,20 @@ in {
     pkgs,
     lib,
     ...
-  }: {
+  }: let
+    cfg = config.mikoshi.plasma;
+  in {
+    options.mikoshi.plasma = {
+      enable = lib.mkEnableOption "KDE Plasma desktop";
+      mainMod = lib.mkOption {
+        default = "Alt";
+        type = lib.types.str;
+        description = "Modifier key to use for keybindings (GSettings format, e.g. Alt, Super, Control)";
+      };
+    };
     imports = [nixosClass.graphical];
-    config = {
+    config = lib.mkIf cfg.enable {
+      mikoshi.graphical.enable = lib.mkDefault true;
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.plasma;
       services.desktopManager.plasma6.enable = true;
       services.displayManager.sddm.enable = true;
@@ -29,7 +40,7 @@ in {
     ...
   }: {
     config = {
-      home.packages = with pkgs; [ kdePackages.krohnkite ];
+      home.packages = with pkgs; [kdePackages.krohnkite];
     };
   };
 }

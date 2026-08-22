@@ -1,14 +1,25 @@
 {inputs, ...}: {
   flake.modules.nixos.base = {
+    config,
     lib,
     pkgs,
     ...
-  }: {
+  }: let
+    cfg = config.mikoshi.nvf;
+  in {
+    options.mikoshi.nvf = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether to enable the nvf (Neovim) configuration";
+      };
+    };
     imports = [inputs.nvf.nixosModules.default];
-    nixpkgs.overlays = [inputs.neovim-nightly-overlay.overlays.default];
-    environment.variables.EDITOR = "nvim";
-    programs.nvf = {
-      enable = true;
+    config = lib.mkIf cfg.enable {
+      nixpkgs.overlays = [inputs.neovim-nightly-overlay.overlays.default];
+      environment.variables.EDITOR = "nvim";
+      programs.nvf = {
+        enable = true;
       settings.vim = {
         vimAlias = true;
 
@@ -412,6 +423,7 @@
           style = lib.mkOverride 150 "mocha";
         };
       };
+    };
     };
   };
 }
