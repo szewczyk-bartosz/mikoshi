@@ -1,7 +1,6 @@
 {config, ...}: let
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
-  nixosClass = config.flake.modules.nixos;
 in {
   flake.modules.nixos.hyprland = {
     config,
@@ -102,7 +101,6 @@ in {
         description = "Package to use as the default file manager";
       };
     };
-    imports = [nixosClass.graphical];
     config = lib.mkIf cfg.enable {
       mikoshi.graphical.enable = lib.mkDefault true;
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.hyprland;
