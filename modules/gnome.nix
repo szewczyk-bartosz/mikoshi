@@ -1,7 +1,6 @@
 {config, ...}: let
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
-  nixosClass = config.flake.modules.nixos;
 in {
   flake.modules.nixos.gnome = {
     config,
@@ -19,7 +18,6 @@ in {
         description = "Modifier key to use for keybindings (GSettings format, e.g. Alt, Super, Control)";
       };
     };
-    imports = [nixosClass.graphical];
     config = lib.mkIf cfg.enable {
       mikoshi.graphical.enable = lib.mkDefault true;
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.gnome;

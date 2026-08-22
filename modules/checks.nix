@@ -9,7 +9,7 @@
       inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          config.flake.modules.nixos.${name}
+          config.flake.modules.nixos.default
           (
             {
               options,
@@ -23,7 +23,8 @@
                   users.users.testuser.isNormalUser = true;
                 }
                 // lib.optionalAttrs (lib.hasAttrByPath ["mikoshi" "meta" "users"] options) {mikoshi.meta.users = ["testuser"];}
-                // lib.optionalAttrs (options ? home-manager) {home-manager.users.testuser.home.stateVersion = "26.05";};
+                // lib.optionalAttrs (options ? home-manager) {home-manager.users.testuser.home.stateVersion = "26.05";}
+                // lib.optionalAttrs (lib.hasAttrByPath ["mikoshi" name "enable"] options) (lib.setAttrByPath ["mikoshi" name "enable"] true);
             }
           )
         ];
