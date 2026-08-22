@@ -1,12 +1,15 @@
 {...}: {
   flake.modules.nixos.graphical = {
+    config,
     pkgs,
     lib,
     ...
   }: {
-    environment.systemPackages = with pkgs; [
-      ghostty
-    ];
+    config = lib.mkIf config.mikoshi.graphical.enable {
+      environment.systemPackages = with pkgs; [
+        ghostty
+      ];
+    };
   };
 
   flake.modules.homeManager.graphical = {

@@ -7,8 +7,15 @@ in {
     lib,
     config,
     ...
-  }: {
+  }: let
+    cfg = config.mikoshi.graphical;
+  in {
+    options.mikoshi.graphical = {
+      enable = lib.mkEnableOption "graphical/desktop support";
+    };
     imports = [nixosClass.base];
-    home-manager.users = hmFor config.mikoshi.meta.users hmClass.graphical;
+    config = lib.mkIf cfg.enable {
+      home-manager.users = hmFor config.mikoshi.meta.users hmClass.graphical;
+    };
   };
 }

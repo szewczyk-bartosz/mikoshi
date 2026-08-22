@@ -8,9 +8,20 @@ in {
     pkgs,
     lib,
     ...
-  }: {
+  }: let
+    cfg = config.mikoshi.gnome;
+  in {
+    options.mikoshi.gnome = {
+      enable = lib.mkEnableOption "GNOME desktop";
+      mainMod = lib.mkOption {
+        default = "Alt";
+        type = lib.types.str;
+        description = "Modifier key to use for keybindings (GSettings format, e.g. Alt, Super, Control)";
+      };
+    };
     imports = [nixosClass.graphical];
-    config = {
+    config = lib.mkIf cfg.enable {
+      mikoshi.graphical.enable = lib.mkDefault true;
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.gnome;
       programs.dconf.enable = true;
       services.displayManager.gdm.enable = true;
