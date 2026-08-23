@@ -58,6 +58,9 @@ in
       options.mikoshi.hyprland = {
         enable = lib.mkEnableOption "Hyprland desktop";
 
+        waybar = {
+          battery.enable = lib.mkEnableOption "waybar battery tray icon";
+        };
         monitors = lib.mkOption {
           default = [ ",preferred,auto,auto" ];
           type = lib.types.listOf lib.types.str;
@@ -387,7 +390,7 @@ in
                 "pulseaudio"
                 "custom/power"
               ]
-              ++ lib.optionals osConfig.mikoshi.waybar.battery.enable [ "battery" ];
+              ++ lib.optionals osConfig.mikoshi.hyprland.waybar.battery.enable [ "battery" ];
 
               "hyprland/workspaces" = {
                 format = "{id}";
@@ -402,7 +405,7 @@ in
                 on-click = "swaync-client -t";
               };
 
-              battery = lib.mkIf osConfig.mikoshi.waybar.battery.enable {
+              battery = lib.mkIf osConfig.mikoshi.hyprland.waybar.battery.enable {
                 states = {
                   warning = 30;
                   critical = 15;
