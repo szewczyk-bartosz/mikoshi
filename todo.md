@@ -8,3 +8,5 @@ Fix checks.nix after the refactor
 
 Make OBS aspect work well on non-AMD cards (currently obs-amd hardcodes radeonsi/VAAPI)
 
+Refactor waybar out of hyprland
+
