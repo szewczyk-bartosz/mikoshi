@@ -16,6 +16,8 @@ in {
     home-manager.useUserPackages = true;
     home-manager.users = hmFor config.mikoshi.meta.users hmClass.base;
 
+    nix.settings.experimental-features = ["nix-command" "flakes"];
+
     console = {
       font = lib.mkDefault "Lat2-Terminus16";
       useXkbConfig = lib.mkDefault true;
