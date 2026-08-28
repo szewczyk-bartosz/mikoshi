@@ -58,9 +58,6 @@ in
       options.mikoshi.hyprland = {
         enable = lib.mkEnableOption "Hyprland desktop";
 
-        waybar = {
-          battery.enable = lib.mkEnableOption "waybar battery tray icon";
-        };
         monitors = lib.mkOption {
           default = [ ",preferred,auto,auto" ];
           type = lib.types.listOf lib.types.str;
@@ -111,6 +108,7 @@ in
       };
       config = lib.mkIf cfg.enable {
         mikoshi.graphical.enable = lib.mkDefault true;
+        mikoshi.waybar.enable = lib.mkDefault true;
         home-manager.users = hmFor config.mikoshi.meta.users hmClass.hyprland;
         programs.hyprland.enable = true;
         programs.hyprland.withUWSM = true;
@@ -152,7 +150,6 @@ in
           pavucontrol
           wlogout
           brightnessctl
-          waybar
           swaynotificationcenter
           networkmanagerapplet
           lxqt.lxqt-policykit
@@ -209,7 +206,6 @@ in
 
             "exec-once" = [
               "lxqt-polkit"
-              "waybar"
               "swaync"
               "sleep 2; nm-applet --indicator"
               "hyprland-alt-tab-daemon"
@@ -372,113 +368,6 @@ in
               ", XF86AudioPause, exec, playerctl play-pause"
             ];
           };
-        };
-
-        programs.waybar = {
-          enable = true;
-          settings = {
-            mainBar = {
-              layer = "top";
-              position = "top";
-              exclusive = false;
-              height = 30;
-
-              modules-left = [ "hyprland/workspaces" ];
-              modules-center = [ "clock" ];
-              modules-right = [
-                "tray"
-                "pulseaudio"
-                "custom/power"
-              ]
-              ++ lib.optionals osConfig.mikoshi.hyprland.waybar.battery.enable [ "battery" ];
-
-              "hyprland/workspaces" = {
-                format = "{id}";
-                on-click = "activate";
-                persistent-workspaces = {
-                  "*" = 4;
-                };
-              };
-
-              clock = {
-                format = "{:%H:%M  %a %d %b}";
-                on-click = "swaync-client -t";
-              };
-
-              battery = lib.mkIf osConfig.mikoshi.hyprland.waybar.battery.enable {
-                states = {
-                  warning = 30;
-                  critical = 15;
-                };
-                format = "{capacity}% {icon}";
-                format-charging = "{capacity}% ⚡";
-                format-plugged = "{capacity}% ";
-                format-alt = "{time} {icon}";
-                format-icons = [
-                  ""
-                  ""
-                  ""
-                  ""
-                  ""
-                ];
-              };
-
-
-              "tray" = {
-                spacing = 8;
-              };
-
-              pulseaudio = {
-                format = "{icon} {volume}%";
-                format-muted = "󰝟 Muted";
-                on-click = "pavucontrol";
-                format-icons = {
-                  default = [
-                    "󰕿"
-                    "󰖀"
-                    "󰕾"
-                  ];
-                };
-              };
-
-              "custom/power" = {
-                format = "⏻";
-                on-click = "wlogout";
-                tooltip = false;
-              };
-            };
-          };
-
-          style = ''
-            * {
-              font-family: monospace;
-              font-size: 16px;
-              border: none;
-              border-radius: 0;
-              padding: 0;
-              margin: 0;
-            }
-
-            window#waybar {
-              padding: 0 8px;
-            }
-
-            #workspaces button {
-              padding: 0 8px;
-            }
-
-            #workspaces button.active {
-              font-weight: bold;
-            }
-
-            #clock,
-            #battery,
-            #network,
-            #pulseaudio,
-            #custom-power {
-              padding: 0 12px;
-            }
-          '';
         };
       };
     };
