@@ -1,6 +1,6 @@
 # Mikoshi
 
-> *"Wake the fuck up Samurai, we've got a city to burn."*
+> *"Wake up Samurai, we've got a city to burn."*
 
 A **dendritic-pattern library flake** — a batteries-included NixOS configuration shipped not as a set of hosts, but as a tree of small, self-contained, independently-toggleable **aspects** that any consuming flake can import and switch on. Point your own flake at mikoshi, enable the aspects you want under the `mikoshi.*` option namespace, and you get a fully configured desktop (window manager, launcher, bar, terminal, Neovim, theming, audio, fonts, ...) without copying any of it into your own repo.
 
