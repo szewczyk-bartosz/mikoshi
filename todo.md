@@ -4,11 +4,9 @@ REALLY MOVE IT TO LUA
 
 Do an overview of the nvf feature
 
-Fix checks.nix after the refactor
+Fix checks.nix after the refactor — DON'T RUN IT for now: it guesses option paths from module file names (mikoshi.<name>.enable), so the WM checks are silently vacuous since the mikoshi.wm.* move (and every planned split/fold will break it further). Change it — likely to an explicit scenario matrix (per-WM + headless + combos) instead of genAttrs over module names
 
 Make OBS aspect work well on non-AMD cards (currently obs-amd hardcodes radeonsi/VAAPI)
-
-Refactor waybar out of hyprland
 
 Fold base.nix into default.nix now that nothing imports "base" by name anymore
 
@@ -20,4 +18,4 @@ Re-check whether "graphical" survives as a real profile-style aspect (mikoshi.au
 
 Write up an install-guide section listing mkDefault'd real NixOS options (time.timeZone, i18n.defaultLocale, console.font) so users know what's defaulted and how to override — decided against a mikoshi.meta.timezone-style wrapper option, it's pure indirection with no transformation happening
 
-Put WMs under a WM kinda key in options for easier assertions 
+Write assertions over the unified mikoshi.wm.* namespace (e.g. at most one WM enabled at a time), now that hyprland/sway/gnome/plasma all live under it

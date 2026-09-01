@@ -8,9 +8,9 @@ in {
     lib,
     ...
   }: let
-    cfg = config.mikoshi.plasma;
+    cfg = config.mikoshi.wm.plasma;
   in {
-    options.mikoshi.plasma = {
+    options.mikoshi.wm.plasma = {
       enable = lib.mkEnableOption "KDE Plasma desktop";
       mainMod = lib.mkOption {
         default = "Alt";

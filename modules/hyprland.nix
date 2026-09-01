@@ -48,9 +48,9 @@ in {
       prev=$(cat ~/.cache/hypr-altworkspace 2>/dev/null || echo "1")
       hyprctl dispatch workspace "$prev"
     '';
-    cfg = config.mikoshi.hyprland;
+    cfg = config.mikoshi.wm.hyprland;
   in {
-    options.mikoshi.hyprland = {
+    options.mikoshi.wm.hyprland = {
       enable = lib.mkEnableOption "Hyprland desktop";
 
       monitors = lib.mkOption {
@@ -108,7 +108,7 @@ in {
       programs.hyprland.enable = true;
       programs.hyprland.withUWSM = true;
 
-      systemd.user.services.hyprpaper = lib.mkIf (config.mikoshi.hyprland.wallpaper != null) {
+      systemd.user.services.hyprpaper = lib.mkIf (config.mikoshi.wm.hyprland.wallpaper != null) {
         description = "Hyprland wallpaper service";
         after = ["graphical-session.target"];
         wantedBy = ["graphical-session.target"];
@@ -168,11 +168,11 @@ in {
     ...
   }: {
     config = {
-      xdg.configFile."hypr/hyprpaper.conf" = lib.mkIf (osConfig.mikoshi.hyprland.wallpaper != null) {
+      xdg.configFile."hypr/hyprpaper.conf" = lib.mkIf (osConfig.mikoshi.wm.hyprland.wallpaper != null) {
         text = ''
           wallpaper {
             monitor =
-            path = ${osConfig.mikoshi.hyprland.wallpaper}
+            path = ${osConfig.mikoshi.wm.hyprland.wallpaper}
             fit_mode = cover
           }
         '';
@@ -181,11 +181,11 @@ in {
         enable = true;
         configType = "hyprlang";
         settings = {
-          "$mainMod" = osConfig.mikoshi.hyprland.mainMod;
-          "$terminal" = lib.getExe osConfig.mikoshi.hyprland.terminal;
-          "$fileManager" = lib.getExe osConfig.mikoshi.hyprland.fileManager;
+          "$mainMod" = osConfig.mikoshi.wm.hyprland.mainMod;
+          "$terminal" = lib.getExe osConfig.mikoshi.wm.hyprland.terminal;
+          "$fileManager" = lib.getExe osConfig.mikoshi.wm.hyprland.fileManager;
 
-          monitor = osConfig.mikoshi.hyprland.monitors;
+          monitor = osConfig.mikoshi.wm.hyprland.monitors;
 
           env = [
             "XCURSOR_SIZE,24"
@@ -206,8 +206,8 @@ in {
           ];
 
           input = {
-            kb_layout = osConfig.mikoshi.hyprland.kb;
-            kb_options = osConfig.mikoshi.hyprland.kbOptions;
+            kb_layout = osConfig.mikoshi.wm.hyprland.kb;
+            kb_options = osConfig.mikoshi.wm.hyprland.kbOptions;
             follow_mouse = 1;
             sensitivity = 0;
             accel_profile = "flat";
@@ -293,7 +293,7 @@ in {
             "$mainMod SHIFT, O, exit"
             # "$mainMod, E, exec, $fileManager"
             "$mainMod, V, togglefloating"
-            "${osConfig.mikoshi.hyprland.launcherKeybind}, exec, pkill wofi || wofi --show drun"
+            "${osConfig.mikoshi.wm.hyprland.launcherKeybind}, exec, pkill wofi || wofi --show drun"
             # focus
             "$mainMod, H, movefocus, l"
             "$mainMod, J, movefocus, d"

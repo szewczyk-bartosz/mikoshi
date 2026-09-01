@@ -8,9 +8,9 @@ in {
     lib,
     ...
   }: let
-    cfg = config.mikoshi.sway;
+    cfg = config.mikoshi.wm.sway;
   in {
-    options.mikoshi.sway = {
+    options.mikoshi.wm.sway = {
       enable = lib.mkEnableOption "Sway desktop";
     };
     config = lib.mkIf cfg.enable {
@@ -42,7 +42,7 @@ in {
     osConfig,
     ...
   }: let
-    cfg = osConfig.mikoshi.sway;
+    cfg = osConfig.mikoshi.wm.sway;
   in {
     config = {
       wayland.windowManager.sway = {

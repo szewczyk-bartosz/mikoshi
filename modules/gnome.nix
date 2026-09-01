@@ -8,9 +8,9 @@ in {
     lib,
     ...
   }: let
-    cfg = config.mikoshi.gnome;
+    cfg = config.mikoshi.wm.gnome;
   in {
-    options.mikoshi.gnome = {
+    options.mikoshi.wm.gnome = {
       enable = lib.mkEnableOption "GNOME desktop";
       mainMod = lib.mkOption {
         default = "Alt";
@@ -78,25 +78,25 @@ in {
         };
 
         "org/gnome/desktop/wm/keybindings" = {
-          switch-to-workspace-1 = ["<${osConfig.mikoshi.gnome.mainMod}>1"];
-          switch-to-workspace-2 = ["<${osConfig.mikoshi.gnome.mainMod}>2"];
-          switch-to-workspace-3 = ["<${osConfig.mikoshi.gnome.mainMod}>3"];
-          switch-to-workspace-4 = ["<${osConfig.mikoshi.gnome.mainMod}>4"];
-          switch-to-workspace-5 = ["<${osConfig.mikoshi.gnome.mainMod}>5"];
-          switch-to-workspace-6 = ["<${osConfig.mikoshi.gnome.mainMod}>6"];
-          switch-to-workspace-7 = ["<${osConfig.mikoshi.gnome.mainMod}>7"];
-          switch-to-workspace-8 = ["<${osConfig.mikoshi.gnome.mainMod}>8"];
-          switch-to-workspace-9 = ["<${osConfig.mikoshi.gnome.mainMod}>9"];
+          switch-to-workspace-1 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>1"];
+          switch-to-workspace-2 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>2"];
+          switch-to-workspace-3 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>3"];
+          switch-to-workspace-4 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>4"];
+          switch-to-workspace-5 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>5"];
+          switch-to-workspace-6 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>6"];
+          switch-to-workspace-7 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>7"];
+          switch-to-workspace-8 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>8"];
+          switch-to-workspace-9 = ["<${osConfig.mikoshi.wm.gnome.mainMod}>9"];
 
-          move-to-workspace-1 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>1"];
-          move-to-workspace-2 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>2"];
-          move-to-workspace-3 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>3"];
-          move-to-workspace-4 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>4"];
-          move-to-workspace-5 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>5"];
-          move-to-workspace-6 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>6"];
-          move-to-workspace-7 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>7"];
-          move-to-workspace-8 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>8"];
-          move-to-workspace-9 = ["<${osConfig.mikoshi.gnome.mainMod}><Shift>9"];
+          move-to-workspace-1 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>1"];
+          move-to-workspace-2 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>2"];
+          move-to-workspace-3 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>3"];
+          move-to-workspace-4 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>4"];
+          move-to-workspace-5 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>5"];
+          move-to-workspace-6 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>6"];
+          move-to-workspace-7 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>7"];
+          move-to-workspace-8 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>8"];
+          move-to-workspace-9 = ["<${osConfig.mikoshi.wm.gnome.mainMod}><Shift>9"];
         };
       };
     };
