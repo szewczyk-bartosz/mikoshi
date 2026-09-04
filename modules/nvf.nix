@@ -320,11 +320,15 @@
             };
           };
 
+          lsp.servers.nixd.settings.nixd.options.nixos.expr = ''(builtins.getFlake (toString ./.)).nixosConfigurations."${config.networking.hostName}".options'';
           languages = {
             nix = {
               enable = true;
               format.enable = true;
-              lsp.enable = true;
+              lsp = {
+                enable = true;
+                servers = [ "nixd" ];
+              };
             };
 
             python = {
