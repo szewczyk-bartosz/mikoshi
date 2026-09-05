@@ -85,7 +85,7 @@ Key properties:
 
 | Option | File | What it does |
 |---|---|---|
-| `mikoshi.meta.users` | `options.nix` | The users every aspect's home-manager config applies to (default `[]`) |
+| `mikoshi.meta.users` | `options.nix` | The users every aspect's home-manager config applies to (required — evaluation fails if unset) |
 | `mikoshi.meta.keyboardLayouts` | `options.nix` | XKB layouts, used by console/X/GNOME (default `["gb"]`) |
 | `mikoshi.network.enable` | `network.nix` | NetworkManager |
 | `mikoshi.nixGarbageCollection.enable` | `nix-garbage-collection.nix` | Weekly `nix gc`, 30-day retention, min/max-free thresholds |
