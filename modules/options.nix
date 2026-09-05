@@ -4,7 +4,6 @@
       meta = {
         users = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [];
           description = "Users to configure via home-manager on this host";
         };
         keyboardLayouts = lib.mkOption {
