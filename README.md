@@ -34,7 +34,7 @@ in {
 Key properties:
 
 - **Everything is gated.** Importing an aspect does nothing until you set its `mikoshi.<name>.enable` (a few quality-of-life aspects like tmux, nvf, networking, and GC default to `true`, all overridable).
-- **Aspects compose sideways.** Enabling `mikoshi.sway` pulls in `mikoshi.walker` via `mkDefault`; enabling `mikoshi.hyprland` pulls in `mikoshi.graphical` and `mikoshi.waybar`. You can still override any of those defaults.
+- **Aspects compose sideways.** Enabling `mikoshi.wm.sway` pulls in `mikoshi.walker` via `mkDefault`; enabling `mikoshi.wm.hyprland` pulls in `mikoshi.graphical` and `mikoshi.waybar`. You can still override any of those defaults.
 - **home-manager is wired automatically.** You declare *who* your users are once (`mikoshi.meta.users`), and every enabled aspect applies its home-manager half to those users via the `hmFor` helper (`modules/lib.nix`).
 - **Multiple files can extend the same aspect.** `audio.nix`, `fonts.nix`, and `ghostty.nix` all contribute to the `graphical` aspect; flake-parts merges them.
 
@@ -52,7 +52,7 @@ Key properties:
         ./hardware-configuration.nix
         {
           mikoshi.meta.users = ["samurai"];
-          mikoshi.hyprland.enable = true;
+          mikoshi.wm.hyprland.enable = true;
           mikoshi.gaming.enable = true;
 
           users.users.samurai.isNormalUser = true;
@@ -97,10 +97,10 @@ Key properties:
 
 | Option | File | What it does |
 |---|---|---|
-| `mikoshi.hyprland.enable` | `hyprland.nix` | Hyprland via UWSM + greetd/tuigreet, wofi launcher, swayosd, custom alt-tab workspace-toggle daemon, hyprpaper, polkit agent, screenshots via grimblast. Options for monitors, wallpaper, keyboard, `mainMod` (default `ALT`), launcher keybind (bare `Super` tap), terminal, file manager |
-| `mikoshi.sway.enable` | `sway.nix` | Sway with hyprland-parity keybinds (Alt as `$mod`, bare `Super_L` tap opens walker), foot, kanshi, swayidle, swayosd, grimblast, polkit agent. Pulls in `mikoshi.walker` by default |
-| `mikoshi.gnome.enable` | `gnome.nix` | GNOME (core apps trimmed, Pop Shell tiling), Adwaita GTK/Qt/cursor theming, dark mode, Alt-based workspace keybinds via dconf |
-| `mikoshi.plasma.enable` | `plasma.nix` | KDE Plasma 6 + SDDM, Krohnkite tiling, Konsole excluded (ghostty ftw) |
+| `mikoshi.wm.hyprland.enable` | `hyprland.nix` | Hyprland via UWSM + greetd/tuigreet, wofi launcher, swayosd, custom alt-tab workspace-toggle daemon, hyprpaper, polkit agent, screenshots via grimblast. Options for monitors, wallpaper, keyboard, `mainMod` (default `ALT`), launcher keybind (bare `Super` tap), terminal, file manager |
+| `mikoshi.wm.sway.enable` | `sway.nix` | Sway with hyprland-parity keybinds (Alt as `$mod`, bare `Super_L` tap opens walker), foot, kanshi, swayidle, swayosd, grimblast, polkit agent. Pulls in `mikoshi.walker` by default |
+| `mikoshi.wm.gnome.enable` | `gnome.nix` | GNOME (core apps trimmed, Pop Shell tiling), Adwaita GTK/Qt/cursor theming, dark mode, Alt-based workspace keybinds via dconf |
+| `mikoshi.wm.plasma.enable` | `plasma.nix` | KDE Plasma 6 + SDDM, Krohnkite tiling, Konsole excluded (ghostty ftw) |
 
 ### Desktop surfaces & utilities
 
