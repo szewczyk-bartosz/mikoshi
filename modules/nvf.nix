@@ -349,7 +349,7 @@
             };
 
             # Javascript / Typescript
-            ts = {
+            typescript = {
               enable = true;
               format.enable = true;
               lsp.enable = true;
