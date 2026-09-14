@@ -218,6 +218,12 @@
               action = "<Esc>";
             }
             {
+              key = "<leader>lf";
+              mode = "n";
+              action = ":lua require('conform').format()<CR>";
+              desc = "Format buffer";
+            }
+            {
               key = "<Esc>";
               mode = ["t"];
               action = "<C-\\><C-n>";
@@ -301,7 +307,7 @@
               codeAction = "<leader>la";
               listDocumentSymbols = "<leader>ls";
               hover = "<leader>lh";
-              format = "<leader>lf";
+              format = null;
 
               # Diagnostics
               openDiagnosticFloat = "<leader>dd";
