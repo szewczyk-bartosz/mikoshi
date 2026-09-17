@@ -1,3 +1,5 @@
+MOVE TO NIXVIM
+
 Move hyprland config to lua
 
 REALLY MOVE IT TO LUA
