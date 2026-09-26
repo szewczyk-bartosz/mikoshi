@@ -434,6 +434,21 @@
                 end
               '';
             }
+            {
+              desc = "remove bracket trigger characters from emmet-ls";
+              event = ["LspAttach"];
+              callback = lib.generators.mkLuaInline ''
+                function(args)
+                  local client = vim.lsp.get_client_by_id(args.data.client_id)
+                  if client and client.name == "emmet-ls" then
+                    client.server_capabilities.completionProvider.triggerCharacters = vim.tbl_filter(
+                      function(c) return c ~= "}" and c ~= ")" and c ~= "]" end,
+                      client.server_capabilities.completionProvider.triggerCharacters or {}
+                    )
+                  end
+                end
+              '';
+            }
           ];
 
           theme = {
