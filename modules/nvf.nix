@@ -364,7 +364,10 @@
             tsx = {
               enable = true;
               format.enable = true;
-              lsp.enable = true;
+              lsp = {
+                enable = true;
+                servers = ["typescript-language-server" "emmet-ls"];
+              };
             };
 
             css = {
