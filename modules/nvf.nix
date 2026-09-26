@@ -361,6 +361,12 @@
               lsp.enable = true;
             };
 
+            tsx = {
+              enable = true;
+              format.enable = true;
+              lsp.enable = true;
+            };
+
             css = {
               enable = true;
               format.enable = true;
