@@ -21,7 +21,7 @@
     stylix = {
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      # inputs.flake-parts.follows = "flake-parts";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
