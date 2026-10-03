@@ -21,6 +21,9 @@ in {
       programs.sway = {
         enable = true;
         package = pkgs.swayfx;
+        extraSessionCommands = ''
+          export WLR_SCENE_DISABLE_DIRECT_SCANOUT=1
+        '';
       };
 
       services.greetd = {
