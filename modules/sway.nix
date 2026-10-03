@@ -22,6 +22,16 @@ in {
         package = pkgs.swayfx;
       };
 
+      services.greetd = {
+        enable = true;
+        settings = {
+          default_session = {
+            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+            user = "greeter";
+          };
+        };
+      };
+
       environment.systemPackages = with pkgs; [
         foot
         kanshi
