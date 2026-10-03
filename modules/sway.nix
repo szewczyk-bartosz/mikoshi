@@ -15,6 +15,7 @@ in {
     };
     config = lib.mkIf cfg.enable {
       # mikoshi.walker.enable = lib.mkDefault true;
+      mikoshi.graphical.enable = lib.mkDefault true;
       # home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
 
       programs.sway = {
