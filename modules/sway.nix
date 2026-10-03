@@ -14,8 +14,13 @@ in {
       enable = lib.mkEnableOption "Sway desktop";
     };
     config = lib.mkIf cfg.enable {
-      mikoshi.walker.enable = lib.mkDefault true;
-      home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
+      # mikoshi.walker.enable = lib.mkDefault true;
+      # home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
+
+      programs.sway = {
+        enable = true;
+        package = pkgs.swayfx;
+      };
 
       environment.systemPackages = with pkgs; [
         foot
