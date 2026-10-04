@@ -9,6 +9,7 @@ in {
     ...
   }: let
     cfg = config.mikoshi.wm.sway;
+    palette = (import ./_palette.nix).${config.mikoshi.theme.polarity};
     altTabDaemon = pkgs.writers.writePython3Bin "mikoshiAltTabDaemon" {libraries = [pkgs.python3Packages.i3ipc];} ''
     import i3ipc
     import os
@@ -82,6 +83,27 @@ in {
         grimshot --notify savecopy "$1" "$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
       '';
     };
+    # awww caches images only per output it has seen and never caches `clear`,
+    # so re-apply on every output event to cover hotplug
+    wallpaper = pkgs.writeShellApplication {
+      name = "mikoshi-wallpaper";
+      runtimeInputs = [pkgs.awww config.programs.sway.package];
+      text = ''
+        apply() {
+          ${
+          if cfg.wallpaper == null
+          then "awww clear ${lib.removePrefix "#" palette.base}"
+          else "awww img \"${cfg.wallpaper}\""
+        }
+        }
+        until awww query >/dev/null 2>&1; do sleep 0.2; done
+        apply
+        swaymsg -t subscribe -m '["output"]' | while read -r _; do
+          sleep 1
+          apply
+        done
+      '';
+    };
     mikoshiWorkspaceSwitcher = pkgs.writeShellScriptBin "msw" ''
       N=$1
       focus_index=''${2:-}
@@ -118,9 +140,14 @@ in {
   in {
     options.mikoshi.wm.sway = {
       enable = lib.mkEnableOption "Sway desktop";
+      wallpaper = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+        description = "Wallpaper image. When null, every output is filled with the palette's base colour.";
+      };
     };
     config = lib.mkIf cfg.enable {
-      # mikoshi.walker.enable = lib.mkDefault true;
+      mikoshi.walker.enable = lib.mkDefault true;
       mikoshi.waybar.enable = lib.mkDefault true;
       mikoshi.swaync.enable = lib.mkDefault true;
       mikoshi.lock.enable = lib.mkDefault true;
@@ -159,7 +186,6 @@ in {
         jq
         swayidle
         playerctl
-        fuzzel
         mikoshiWorkspaceSwitcher
         mswMove
         mikoshiAltTab
@@ -189,6 +215,24 @@ in {
           };
           Service = {
             ExecStart = "${altTabDaemon}/bin/mikoshiAltTabDaemon";
+            Restart = "on-failure";
+            RestartSec = "5s";
+          };
+          Install.WantedBy = ["graphical-session.target"];
+        };
+
+        services.awww.enable = true;
+
+        systemd.user.services.mikoshiWallpaper = {
+          Unit = {
+            Description = "Mikoshi wallpaper setter";
+            After = ["graphical-session.target" "awww.service"];
+            Wants = ["awww.service"];
+            # restarting the daemon drops a solid colour, so re-run with it
+            PartOf = ["graphical-session.target" "awww.service"];
+          };
+          Service = {
+            ExecStart = "${wallpaper}/bin/mikoshi-wallpaper";
             Restart = "on-failure";
             RestartSec = "5s";
           };
