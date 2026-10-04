@@ -94,12 +94,17 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaymsg exit
 
-bar {
-    position top
-    status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
-}
+
+gaps inner 8
+gaps outer 8
+default_border pixel 2
+corner_radius 16
+client.focused #9d8cc6 #9d8cc6 #e0e0e5 #9d8cc6 #9d8cc6
 
 for_window [class="steam_app_.*"] allow_tearing yes
 for_window [app_id="steam_app_.*"] allow_tearing yes
 
-exec msw
+bindsym $mod+Tab exec mikoshiAltTab
+exec msw 1
+exec exec uwsm finalize
+
