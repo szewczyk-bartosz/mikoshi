@@ -9,6 +9,66 @@ in {
     ...
   }: let
     cfg = config.mikoshi.wm.sway;
+    altTabDaemon = pkgs.writers.writePython3Bin "mikoshiAltTabDaemon" {libraries = [pkgs.python3Packages.i3ipc];} ''
+    import i3ipc
+    import os
+
+    ipc = i3ipc.Connection()
+
+    state_file = os.path.expanduser("~/.cache/mikoshi-alttabworkspace")
+    os.makedirs(os.path.dirname(state_file), exist_ok=True)
+
+    with open(state_file, "w") as f:
+        f.write("1:1")
+
+
+    def on_workspace(ipc, event):
+        if event.change == 'focus':
+            old = event.old.name  # the workspace you just left
+            new = event.current.name
+            # extract N from "N:j"
+            prev_n, prev_j = old.split(":")
+            new_n, new_j = new.split(":")
+            if prev_n != new_n:
+                with open(state_file, "w") as f:
+                    f.write(old)
+
+
+    ipc.on('workspace', on_workspace)
+    ipc.main()
+    '';
+    mikoshiAltTab = pkgs.writeShellScriptBin {
+      name = "mikoshiAltTab";
+      runtimeInputs = [ mikoshiWorkspaceSwitcher ];
+      text = ''
+      prev=$(cat ~/.cache/mws-altworkspace)
+      N=$(echo "$prev" | cut -d: -f1)
+      j=$(echo "$prev" | cut -d: -f2)
+      mws "$N" "$j"
+        '';
+    };
+    mikoshiWorkspaceSwitcher = pkgs.writeShellScriptBin "msw" ''
+      N=$1
+      focus_index=''${2:-}
+      original=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
+      monitors=$(swaymsg -t get_outputs | jq -r '[.[] | select(.active)] | sort_by(.rect.x, .rect.y) | .[].name')
+
+      j=1
+      focus_output=""
+      while IFS= read -r monitor; do
+          swaymsg "focus output $monitor; workspace $N:$j; move workspace to output $monitor"
+          if [ "$j" = "$focus_index" ]; then
+              focus_output=$monitor
+          fi
+          j=$((j + 1))
+      done <<< "$monitors"
+
+      if [ -n "$focus_output" ]; then
+          swaymsg "focus output $focus_output"
+      else
+          swaymsg "focus output $original"
+      fi
+    '';
   in {
     options.mikoshi.wm.sway = {
       enable = lib.mkEnableOption "Sway desktop";
@@ -26,11 +86,20 @@ in {
         '';
       };
 
+      programs.uwsm = {
+        enable = true;
+        waylandCompositors.sway = {
+          prettyName = "Sway";
+          comment = "Sway compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/sway";
+        };
+      };
+
       services.greetd = {
         enable = true;
         settings = {
           default_session = {
-            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd uwsm start sway";
             user = "greeter";
           };
         };
@@ -39,13 +108,23 @@ in {
       environment.systemPackages = with pkgs; [
         foot
         kanshi
+        jq
         swayidle
         playerctl
         grimblast
+        fuzzel
+        mikoshiWorkspaceSwitcher
+        mikoshiAltTab
         swayosd
         lxqt.lxqt-policykit
       ];
 
+      systemd.user.services.altTabDaemon = {
+        description = "Python alt-tab server";
+        after = ["sway-session.target"];
+        wantedBy = ["sway-session.target"];
+        serviceConfig.ExecStart = "${altTabDaemon}/bin/mikoshiAltTabDaemon";
+      };
       systemd.user.services.swayosd-server = {
         description = "SwayOSD Server";
         after = ["graphical-session.target"];
