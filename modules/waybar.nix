@@ -90,7 +90,7 @@ in {
 
     style = gtkColors palette + ''
       * {
-        font-family: sans-serif;
+        font-family: "Nunito", sans-serif;
         font-size: 13px;
         border: none;
         border-radius: 0;

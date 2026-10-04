@@ -19,7 +19,7 @@
         fontconfig = {
           defaultFonts = {
             serif = ["Noto Serif"];
-            sansSerif = ["Noto Sans"];
+            sansSerif = lib.mkDefault ["Noto Sans"];
             monospace = ["JetBrainsMono Nerd Font"];
             emoji = ["Noto Color Emoji"];
           };

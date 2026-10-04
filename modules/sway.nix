@@ -145,6 +145,11 @@ in {
         default = null;
         description = "Wallpaper image. When null, every output is filled with the palette's base colour.";
       };
+      directScanout = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Allow wlroots direct scanout of fullscreen windows. Off by default; enable if your GPU handles it without flicker.";
+      };
     };
     config = lib.mkIf cfg.enable {
       mikoshi.walker.enable = lib.mkDefault true;
@@ -153,12 +158,12 @@ in {
       mikoshi.lock.enable = lib.mkDefault true;
       mikoshi.regreet.enable = lib.mkDefault true;
       mikoshi.graphical.enable = lib.mkDefault true;
-      # home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
+      mikoshi.appearance.enable = lib.mkDefault true;
 
       programs.sway = {
         enable = true;
         package = pkgs.swayfx;
-        extraSessionCommands = ''
+        extraSessionCommands = lib.optionalString (!cfg.directScanout) ''
           export WLR_SCENE_DISABLE_DIRECT_SCANOUT=1
         '';
       };
@@ -173,7 +178,6 @@ in {
       };
 
       environment.systemPackages = with pkgs; [
-        foot
         jq
         swayidle
         playerctl
@@ -195,6 +199,8 @@ in {
       # xdg.portal.config.sway accordingly
 
       home-manager.users = hmFor config.mikoshi.meta.users {
+        imports = [hmClass.sway];
+
         services.swayosd.enable = true;
         services.polkit-gnome.enable = true;
 
@@ -249,97 +255,135 @@ in {
 
   flake.modules.homeManager.sway = {
     lib,
-    pkgs,
     osConfig,
     ...
   }: let
-    cfg = osConfig.mikoshi.wm.sway;
+    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    # $mod+N switches desktop N on every monitor, $mod+Shift+N sends the
+    # focused window to desktop N on this monitor; 0 is desktop 10
+    workspaceBinds = lib.concatMapStrings (n: let
+      key = toString (lib.mod n 10);
+    in ''
+      bindsym $mod+${key} exec msw ${toString n}
+      bindsym $mod+Shift+${key} exec msw-move ${toString n}
+    '') (lib.genList (i: i + 1) 10);
   in {
-    config = {
-      wayland.windowManager.sway = {
-        enable = true;
-        # keep the raw extraConfig authoritative instead of home-manager's
-        # generated defaults (which would re-add Mod4 bindings)
-        config = null;
-        extraConfig = ''
-          # Alt for window management, matching hyprland's mainMod;
-          # the launcher is a separate bare Super tap below
-          set $mod Mod1
+    wayland.windowManager.sway = {
+      enable = true;
+      # swayfx comes from the NixOS module; null also skips the config check,
+      # which can't see ~/.config/sway/outputs or swayfx-only commands
+      package = null;
+      # UWSM exports the environment and owns graphical-session.target
+      systemd.enable = false;
+      config = null;
+      extraConfig = ''
+        set $mod Mod1
+        set $term ghostty
 
-          # session utilities
-          exec lxqt-polkit
-          exec kanshi
-          exec swayidle
+        # monitor layout, written by nwg-displays ($mod+Shift+d)
+        include ~/.config/sway/outputs
 
-          # launcher: bare Super tap, mirroring hyprland's "SUPER, SUPER_L"
-          bindsym Super_L exec walker
+        font pango:monospace 10
+        seat * xcursor_theme WhiteSur-cursors 24
 
-          # core
-          bindsym $mod+Return exec foot
-          bindsym $mod+Shift+q kill
-          bindsym $mod+v floating toggle
-          bindsym $mod+Shift+r reload
-          bindsym $mod+Shift+e exit
+        focus_follows_mouse yes
+        mouse_warping output
 
-          # focus
-          bindsym $mod+h focus left
-          bindsym $mod+j focus down
-          bindsym $mod+k focus up
-          bindsym $mod+l focus right
+        ${workspaceBinds}
+        # focus
+        bindsym $mod+h focus left
+        bindsym $mod+j focus down
+        bindsym $mod+k focus up
+        bindsym $mod+l focus right
+        bindsym $mod+Left focus left
+        bindsym $mod+Down focus down
+        bindsym $mod+Up focus up
+        bindsym $mod+Right focus right
 
-          # move window
-          bindsym $mod+Shift+h move left
-          bindsym $mod+Shift+j move down
-          bindsym $mod+Shift+k move up
-          bindsym $mod+Shift+l move right
+        # move windows
+        bindsym $mod+Shift+h move left
+        bindsym $mod+Shift+j move down
+        bindsym $mod+Shift+k move up
+        bindsym $mod+Shift+l move right
+        bindsym $mod+Shift+Left move left
+        bindsym $mod+Shift+Down move down
+        bindsym $mod+Shift+Up move up
+        bindsym $mod+Shift+Right move right
 
-          # workspaces
-          bindsym $mod+1 workspace number 1
-          bindsym $mod+2 workspace number 2
-          bindsym $mod+3 workspace number 3
-          bindsym $mod+4 workspace number 4
-          bindsym $mod+5 workspace number 5
-          bindsym $mod+6 workspace number 6
-          bindsym $mod+7 workspace number 7
-          bindsym $mod+8 workspace number 8
-          bindsym $mod+9 workspace number 9
-          bindsym $mod+0 workspace number 10
+        bindsym --release Super_L exec walker
 
-          # move to workspace — unlike hyprland's movetoworkspacesilent this
-          # also switches focus to the target workspace; sway has no silent
-          # variant (swaywm/sway#1518)
-          bindsym $mod+Shift+1 move container to workspace number 1
-          bindsym $mod+Shift+2 move container to workspace number 2
-          bindsym $mod+Shift+3 move container to workspace number 3
-          bindsym $mod+Shift+4 move container to workspace number 4
-          bindsym $mod+Shift+5 move container to workspace number 5
-          bindsym $mod+Shift+6 move container to workspace number 6
-          bindsym $mod+Shift+7 move container to workspace number 7
-          bindsym $mod+Shift+8 move container to workspace number 8
-          bindsym $mod+Shift+9 move container to workspace number 9
-          bindsym $mod+Shift+0 move container to workspace number 10
+        # layout / floating
+        bindsym $mod+s layout stacking
+        bindsym $mod+w layout tabbed
+        bindsym $mod+e layout toggle split
+        bindsym $mod+Shift+space floating toggle
+        bindsym $mod+space focus mode_toggle
+        bindsym $mod+a focus parent
 
-          # modifier+left-drag moves, modifier+right-drag resizes floating windows
-          floating_modifier $mod
+        # resize mode
+        mode "resize" {
+            bindsym h resize shrink width 10px
+            bindsym j resize grow height 10px
+            bindsym k resize shrink height 10px
+            bindsym l resize grow width 10px
+            bindsym Left resize shrink width 10px
+            bindsym Down resize grow height 10px
+            bindsym Up resize shrink height 10px
+            bindsym Right resize grow width 10px
 
-          # screenshot
-          bindsym $mod+Shift+s exec grimblast copysave area ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
+            bindsym Return mode "default"
+            bindsym Escape mode "default"
+        }
+        bindsym $mod+r mode "resize"
 
-          # volume / brightness (swayosd)
-          bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
-          bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
-          bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-          bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
-          bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
-          bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
+        bindsym $mod+Return exec $term
+        bindsym $mod+Shift+q kill
+        bindsym $mod+f fullscreen
+        bindsym $mod+Shift+c reload
+        bindsym $mod+Shift+e exec swaymsg exit
+        bindsym Mod4+l exec loginctl lock-session
+        bindsym $mod+Shift+d exec nwg-displays
+        bindsym $mod+Tab exec mikoshiAltTab
 
-          # media keys
-          bindsym XF86AudioNext exec playerctl next
-          bindsym XF86AudioPrev exec playerctl previous
-          bindsym XF86AudioPlay exec playerctl play-pause
-          bindsym XF86AudioPause exec playerctl play-pause
-        '';
-      };
+        # screenshots: save to ~/Pictures/Screenshots and copy
+        bindsym $mod+Shift+s exec mikoshi-screenshot area
+        bindsym Print exec mikoshi-screenshot output
+
+        # volume / brightness (swayosd)
+        bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+        bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
+        bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
+        bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+        bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
+        bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
+
+        # media keys
+        bindsym XF86AudioNext exec playerctl next
+        bindsym XF86AudioPrev exec playerctl previous
+        bindsym XF86AudioPlay exec playerctl play-pause
+        bindsym XF86AudioPause exec playerctl play-pause
+
+        gaps inner 8
+        gaps outer 8
+        default_border pixel 2
+        corner_radius 16
+        smart_corner_radius enable
+
+        # class                 border           background       text           indicator        child_border
+        client.focused          ${palette.accent} ${palette.accent} ${palette.text} ${palette.accent} ${palette.accent}
+        client.focused_inactive ${palette.subtle} ${palette.surface} ${palette.text} ${palette.subtle} ${palette.subtle}
+        client.unfocused        ${palette.subtle} ${palette.base} ${palette.muted} ${palette.subtle} ${palette.subtle}
+        client.urgent           ${palette.danger} ${palette.danger} ${palette.base} ${palette.danger} ${palette.danger}
+
+        layer_effects "waybar" blur enable; corner_radius 12
+        layer_effects "swaync-control-center" blur enable; corner_radius 16
+        layer_effects "swaync-notification-window" blur enable; corner_radius 16
+        # walker is a full-screen transparent surface; blur only behind the box
+        layer_effects "walker" blur enable; blur_ignore_transparent enable
+
+        exec msw 1
+        exec exec uwsm finalize
+      '';
     };
   };
 }
