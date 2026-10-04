@@ -108,6 +108,7 @@ in {
       # mikoshi.walker.enable = lib.mkDefault true;
       mikoshi.waybar.enable = lib.mkDefault true;
       mikoshi.swaync.enable = lib.mkDefault true;
+      mikoshi.lock.enable = lib.mkDefault true;
       mikoshi.graphical.enable = lib.mkDefault true;
       # home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
 
