@@ -36,7 +36,7 @@ in {
     settings.mainBar = {
       layer = "top";
       position = "top";
-      height = 32;
+      height = 38;
       margin-top = 8;
       margin-left = 16;
       margin-right = 16;
@@ -91,7 +91,7 @@ in {
     style = gtkColors palette + ''
       * {
         font-family: "Nunito", sans-serif;
-        font-size: 13px;
+        font-size: 18px;
         border: none;
         border-radius: 0;
         padding: 0;
