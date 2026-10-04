@@ -151,6 +151,7 @@ in {
       mikoshi.waybar.enable = lib.mkDefault true;
       mikoshi.swaync.enable = lib.mkDefault true;
       mikoshi.lock.enable = lib.mkDefault true;
+      mikoshi.regreet.enable = lib.mkDefault true;
       mikoshi.graphical.enable = lib.mkDefault true;
       # home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
 
@@ -168,16 +169,6 @@ in {
           prettyName = "Sway";
           comment = "Sway compositor managed by UWSM";
           binPath = "/run/current-system/sw/bin/sway";
-        };
-      };
-
-      services.greetd = {
-        enable = true;
-        settings = {
-          default_session = {
-            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd \"uwsm start sway\"";
-            user = "greeter";
-          };
         };
       };
 

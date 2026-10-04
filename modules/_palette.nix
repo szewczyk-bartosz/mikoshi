@@ -2,6 +2,8 @@
   dark = {
     base = "#2b2b30";
     surface = "#3a3a3f";
+    overlay = "#45454b";
+    subtle = "#55555c";
     text = "#e0e0e5";
     muted = "#8a8a90";
     accent = "#9d8cc6";
@@ -12,6 +14,8 @@
   light = {
     base = "#f4f4f6";
     surface = "#e8e8ec";
+    overlay = "#ffffff";
+    subtle = "#d4d4da";
     text = "#1a1a1f";
     muted = "#6a6a70";
     accent = "#9d8cc6";
