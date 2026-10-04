@@ -61,7 +61,7 @@ in {
 
       clock = {
         format = "{:%H:%M  %a %d %b}";
-        on-click = "swaync-client -t";
+        on-click = "swaync-client -t -sw";
       };
 
       pulseaudio = {

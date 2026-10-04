@@ -26,18 +26,18 @@ in {
     def on_output(ipc, event):
         focused = [i for i in ipc.get_workspaces() if i.focused]
         if focused:
-            n = focused[0].name.split(":")[0]
+            n = focused[0].name.partition(":")[0]
             binpath = "${mikoshiWorkspaceSwitcher}/bin/msw"
             subprocess.run([binpath, n])
 
 
     def on_workspace(ipc, event):
-        if event.change == 'focus':
+        if event.change == 'focus' and event.old:
             old = event.old.name  # the workspace you just left
             new = event.current.name
             # extract N from "N:j"
-            prev_n, prev_j = old.split(":")
-            new_n, new_j = new.split(":")
+            prev_n = old.partition(":")[0]
+            new_n = new.partition(":")[0]
             if prev_n != new_n:
                 with open(state_file, "w") as f:
                     f.write(old)
@@ -57,11 +57,21 @@ in {
       msw "$N" "$j"
         '';
     };
+    # active outputs ordered left to right, top to bottom; output j of desktop N is this list's j-th line
+    mswOutputs = pkgs.writeShellScriptBin "msw-outputs" ''
+      swaymsg -t get_outputs | jq -r '[.[] | select(.active)] | sort_by(.rect.x, .rect.y) | .[].name'
+    '';
+    mswMove = pkgs.writeShellScriptBin "msw-move" ''
+      N=$1
+      focused=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
+      j=$(${mswOutputs}/bin/msw-outputs | grep -nxF "$focused" | cut -d: -f1)
+      swaymsg "move container to workspace $N:$j"
+    '';
     mikoshiWorkspaceSwitcher = pkgs.writeShellScriptBin "msw" ''
       N=$1
       focus_index=''${2:-}
       original=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
-      monitors=$(swaymsg -t get_outputs | jq -r '[.[] | select(.active)] | sort_by(.rect.x, .rect.y) | .[].name')
+      monitors=$(${mswOutputs}/bin/msw-outputs)
       count=$(echo "$monitors" | wc -l)
 
       # Move orphaned windows
@@ -97,6 +107,7 @@ in {
     config = lib.mkIf cfg.enable {
       # mikoshi.walker.enable = lib.mkDefault true;
       mikoshi.waybar.enable = lib.mkDefault true;
+      mikoshi.swaync.enable = lib.mkDefault true;
       mikoshi.graphical.enable = lib.mkDefault true;
       # home-manager.users = hmFor config.mikoshi.meta.users hmClass.sway;
 
@@ -135,22 +146,28 @@ in {
         grimblast
         fuzzel
         mikoshiWorkspaceSwitcher
+        mswMove
         mikoshiAltTab
         swayosd
         lxqt.lxqt-policykit
       ];
 
-      systemd.user.services.altTabDaemon = {
-        description = "Python alt-tab server";
-        after = ["graphical-session.target"];
-        wantedBy = ["graphical-session.target"];
-        partOf = ["graphical-session.target"];
-        serviceConfig = {
-          ExecStart = "${altTabDaemon}/bin/mikoshiAltTabDaemon";
-          Restart = "on-failure";
-          RestartSec = "5s";
+      home-manager.users = hmFor config.mikoshi.meta.users {
+        systemd.user.services.mikoshiAltTabDaemon = {
+          Unit = {
+            Description = "Mikoshi alt-tab workspace tracker";
+            After = ["graphical-session.target"];
+            PartOf = ["graphical-session.target"];
+          };
+          Service = {
+            ExecStart = "${altTabDaemon}/bin/mikoshiAltTabDaemon";
+            Restart = "on-failure";
+            RestartSec = "5s";
+          };
+          Install.WantedBy = ["graphical-session.target"];
         };
       };
+
       systemd.user.services.swayosd-server = {
         description = "SwayOSD Server";
         after = ["graphical-session.target"];

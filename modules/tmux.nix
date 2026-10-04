@@ -26,6 +26,7 @@
         focusEvents = lib.mkDefault true; # For neovim to work correctly
         terminal = lib.mkDefault "tmux-256color"; # COLOUR
         extraConfig = lib.mkDefault ''
+          set -ga update-environment " SWAYSOCK WAYLAND_DISPLAY"
           bind h select-pane -L
           bind j select-pane -D
           bind k select-pane -U

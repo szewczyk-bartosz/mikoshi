@@ -31,16 +31,16 @@ bindsym $mod+8 exec msw 8
 bindsym $mod+9 exec msw 9
 bindsym $mod+0 exec msw 10
 
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 exec msw-move 1
+bindsym $mod+Shift+2 exec msw-move 2
+bindsym $mod+Shift+3 exec msw-move 3
+bindsym $mod+Shift+4 exec msw-move 4
+bindsym $mod+Shift+5 exec msw-move 5
+bindsym $mod+Shift+6 exec msw-move 6
+bindsym $mod+Shift+7 exec msw-move 7
+bindsym $mod+Shift+8 exec msw-move 8
+bindsym $mod+Shift+9 exec msw-move 9
+bindsym $mod+Shift+0 exec msw-move 10
 
 # focus
 bindsym $mod+h focus left
@@ -100,6 +100,9 @@ gaps outer 8
 default_border pixel 2
 corner_radius 16
 client.focused #9d8cc6 #9d8cc6 #e0e0e5 #9d8cc6 #9d8cc6
+
+layer_effects "swaync-control-center" blur enable; corner_radius 16
+layer_effects "swaync-notification-window" blur enable; corner_radius 16
 
 for_window [class="steam_app_.*"] allow_tearing yes
 for_window [app_id="steam_app_.*"] allow_tearing yes
