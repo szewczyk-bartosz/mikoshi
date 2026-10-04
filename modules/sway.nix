@@ -72,6 +72,16 @@ in {
       [ -s "$HOME/.config/sway/outputs" ] ||
         ${pkgs.libnotify}/bin/notify-send "Monitors" "Press Alt+Shift+D to arrange your monitors"
     '';
+    # `mikoshi-screenshot <grimshot target>`: save to ~/Pictures/Screenshots and copy
+    screenshot = pkgs.writeShellApplication {
+      name = "mikoshi-screenshot";
+      runtimeInputs = [pkgs.sway-contrib.grimshot pkgs.libnotify];
+      text = ''
+        dir="$HOME/Pictures/Screenshots"
+        mkdir -p "$dir"
+        grimshot --notify savecopy "$1" "$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
+      '';
+    };
     mikoshiWorkspaceSwitcher = pkgs.writeShellScriptBin "msw" ''
       N=$1
       focus_index=''${2:-}
@@ -149,13 +159,11 @@ in {
         jq
         swayidle
         playerctl
-        grimblast
         fuzzel
         mikoshiWorkspaceSwitcher
         mswMove
         mikoshiAltTab
-        swayosd
-        lxqt.lxqt-policykit
+        screenshot
         nwg-displays
       ];
 
@@ -165,7 +173,14 @@ in {
         "f %h/.config/sway/outputs 0644 - - -"
       ];
 
+      # portals: programs.sway already enables the wlr (ScreenCast, Screenshot)
+      # and gtk (everything else, incl. file chooser) portals and sets
+      # xdg.portal.config.sway accordingly
+
       home-manager.users = hmFor config.mikoshi.meta.users {
+        services.swayosd.enable = true;
+        services.polkit-gnome.enable = true;
+
         systemd.user.services.mikoshiAltTabDaemon = {
           Unit = {
             Description = "Mikoshi alt-tab workspace tracker";
@@ -192,14 +207,6 @@ in {
           };
           Install.WantedBy = ["graphical-session.target"];
         };
-      };
-
-      systemd.user.services.swayosd-server = {
-        description = "SwayOSD Server";
-        after = ["graphical-session.target"];
-        wantedBy = ["graphical-session.target"];
-        partOf = ["graphical-session.target"];
-        serviceConfig.ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
       };
     };
     
