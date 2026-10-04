@@ -227,6 +227,10 @@ Both desktops share the same scheme: **Alt** (`mainMod`/`$mod`) drives window ma
 | Volume / brightness keys | swayosd on-screen display |
 | Media keys | playerctl |
 
+### Monitor arrangement (Sway)
+
+No monitor layout ships in the config: sway includes `~/.config/sway/outputs` (seeded empty by tmpfiles). Press `Alt+Shift+D` to open nwg-displays, which writes that file by default (`-o/--outputs_path` overrides it). Until the file has content, a notification at login reminds you. Tick **Use descriptions** in nwg-displays (the `use-desc` key in `~/.config/nwg-displays/config`) so outputs are saved by make/model/serial instead of connector name, which survives ports being swapped.
+
 ## Checks & development
 
 `modules/checks.nix` generates, for **every** NixOS aspect, a minimal container-flavoured `nixosSystem` with that aspect force-enabled and a test user, and exposes each as a flake check — so `nix flake check` proves every aspect at least evaluates and builds its toplevel derivation in isolation.

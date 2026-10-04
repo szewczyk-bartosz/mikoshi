@@ -1,8 +1,8 @@
 set $mod Mod1
 set $term ghostty
 
-output HDMI-A-1 mode 2560x1440@59.95Hz pos 0,0
-output DP-2 mode 2560x1440@239.97Hz pos 2560,0 adaptive_sync on
+# monitor layout, written by nwg-displays ($mod+Shift+d)
+include ~/.config/sway/outputs
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
@@ -94,6 +94,7 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaymsg exit
 bindsym Mod4+l exec loginctl lock-session
+bindsym $mod+Shift+d exec nwg-displays
 
 
 gaps inner 8
