@@ -285,6 +285,10 @@ in {
 
         font pango:monospace 10
         seat * xcursor_theme WhiteSur-cursors 24
+        input type:pointer {
+            accel_profile flat
+            pointer_accel 0
+        }
 
         focus_follows_mouse yes
         mouse_warping output
