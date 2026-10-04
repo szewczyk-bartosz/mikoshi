@@ -1,6 +1,7 @@
 {config, ...}: let
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
+  gtkColors = config.flake.lib.gtkColors;
 in {
   flake.modules.nixos.walker = {
     config,
@@ -17,49 +18,179 @@ in {
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.walker;
 
       environment.systemPackages = with pkgs; [
-        walker
-        elephant
         # elephant's clipboard provider watches via wl-paste, sizes images via identify
         wl-clipboard
         imagemagick
       ];
-
-      # elephant must run inside the user session, not as a system service —
-      # it silently breaks without the session's environment variables
-      systemd.user.services.elephant = {
-        description = "Elephant launcher backend";
-        after = ["graphical-session.target"];
-        wantedBy = ["graphical-session.target"];
-        bindsTo = ["graphical-session.target"];
-        serviceConfig.ExecStart = "${pkgs.elephant}/bin/elephant";
-      };
     };
   };
 
-  flake.modules.homeManager.walker = {...}: {
+  flake.modules.homeManager.walker = {osConfig, ...}: let
+    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    sessionUnit = {
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+    };
+  in {
     config = {
-      xdg.configFile."walker/config.toml".text = ''
-        [providers]
-        default = ["desktopapplications"]
-        empty = ["desktopapplications"]
+      services.elephant.enable = true;
+      systemd.user.services.elephant.Unit = sessionUnit;
 
-        [[providers.prefixes]]
-        prefix = "="
-        provider = "calc"
+      # resident walker opens instantly; it Requires elephant.service
+      services.walker = {
+        enable = true;
+        systemd.enable = true;
+        # on-demand layer-shell focus only arrives on click under sway
+        settings.force_keyboard_focus = true;
+        settings.providers = {
+          default = ["desktopapplications"];
+          empty = ["desktopapplications"];
+          prefixes = [
+            {
+              prefix = "=";
+              provider = "calc";
+            }
+            {
+              prefix = "/";
+              provider = "files";
+            }
+            {
+              prefix = ":";
+              provider = "clipboard";
+            }
+          ];
+        };
+        # replaces walker's default stylesheet entirely; `all: unset` keeps the
+        # GTK theme out, the default layout is kept
+        theme = {
+          name = "mikoshi";
+          style =
+            gtkColors palette
+            + ''
+              * {
+                all: unset;
+              }
 
-        [[providers.prefixes]]
-        prefix = "/"
-        provider = "files"
+              popover {
+                background: @surface;
+                border-radius: 16px;
+                padding: 8px;
+              }
 
-        [[providers.prefixes]]
-        prefix = ":"
-        provider = "clipboard"
-      '';
+              .normal-icons {
+                -gtk-icon-size: 16px;
+              }
+
+              .large-icons {
+                -gtk-icon-size: 32px;
+              }
+
+              scrollbar {
+                opacity: 0;
+              }
+
+              .box-wrapper {
+                min-width: 640px;
+                background: alpha(@base, 0.8);
+                padding: 16px;
+                border-radius: 16px;
+              }
+
+              .preview-box,
+              .elephant-hint,
+              .placeholder,
+              .list {
+                color: @text;
+              }
+
+              .input {
+                caret-color: @text;
+                background: alpha(@surface, 0.6);
+                padding: 8px 16px;
+                border-radius: 12px;
+                color: @text;
+              }
+
+              .input placeholder {
+                color: @muted;
+              }
+
+              .input selection {
+                background: alpha(@accent, 0.4);
+              }
+
+              .item-box {
+                border-radius: 12px;
+                padding: 8px;
+              }
+
+              child:selected .item-box,
+              row:selected .item-box {
+                background: alpha(@accent, 0.25);
+              }
+
+              .item-quick-activation {
+                background: alpha(@surface, 0.6);
+                border-radius: 8px;
+                padding: 8px;
+              }
+
+              .item-subtext {
+                font-size: 12px;
+                color: @muted;
+              }
+
+              .item-image-text {
+                font-size: 28px;
+              }
+
+              .calc .item-text {
+                font-size: 24px;
+              }
+
+              .preview {
+                border: 1px solid alpha(@muted, 0.25);
+                border-radius: 12px;
+                color: @text;
+              }
+
+              .preview .large-icons {
+                -gtk-icon-size: 64px;
+              }
+
+              .keybinds {
+                padding-top: 8px;
+                border-top: 1px solid alpha(@muted, 0.25);
+                font-size: 12px;
+                color: @muted;
+              }
+
+              .keybind-label {
+                padding: 2px 4px;
+                border-radius: 4px;
+                border: 1px solid @muted;
+              }
+
+              .error {
+                padding: 8px;
+                border-radius: 12px;
+                background: @danger;
+                color: @base;
+              }
+            '';
+        };
+      };
+      systemd.user.services.walker.Unit = sessionUnit;
 
       # providers load automatically when installed; keep only the ones walker
       # uses (desktopapplications, calc, files, clipboard) plus menus and
-      # providerlist, which walker's action system relies on internally
+      # providerlist, which walker's action system relies on internally.
+      # written by hand: elephant reads elephant.toml, services.elephant.settings
+      # writes config.toml
       xdg.configFile."elephant/elephant.toml".text = ''
+        # launched apps get their own systemd scope instead of living in elephant's
+        launch_prefix = "uwsm app --"
+
         ignored_providers = [
           "1password",
           "archlinuxpkgs",

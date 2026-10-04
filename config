@@ -62,7 +62,7 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym --release Super_L exec fuzzel
+bindsym --release Super_L exec walker
 
 # layout / floating
 bindsym $mod+s layout stacking
@@ -122,6 +122,8 @@ client.focused #9d8cc6 #9d8cc6 #e0e0e5 #9d8cc6 #9d8cc6
 
 layer_effects "swaync-control-center" blur enable; corner_radius 16
 layer_effects "swaync-notification-window" blur enable; corner_radius 16
+# walker is a full-screen transparent surface; blur only behind the box
+layer_effects "walker" blur enable; blur_ignore_transparent enable
 
 for_window [class="steam_app_.*"] allow_tearing yes
 for_window [app_id="steam_app_.*"] allow_tearing yes
