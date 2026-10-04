@@ -19,6 +19,9 @@ in {
       environment.systemPackages = with pkgs; [
         walker
         elephant
+        # elephant's clipboard provider watches via wl-paste, sizes images via identify
+        wl-clipboard
+        imagemagick
       ];
 
       # elephant must run inside the user session, not as a system service —
