@@ -62,7 +62,7 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym Super_L exec fuzzel
+bindsym --release Super_L exec fuzzel
 
 # layout / floating
 bindsym $mod+s layout stacking
@@ -93,6 +93,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaymsg exit
+bindsym Mod4+l exec loginctl lock-session
 
 
 gaps inner 8
