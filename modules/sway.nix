@@ -67,6 +67,11 @@ in {
       j=$(${mswOutputs}/bin/msw-outputs | grep -nxF "$focused" | cut -d: -f1)
       swaymsg "move container to workspace $N:$j"
     '';
+    # nudge towards nwg-displays until a layout has been saved
+    outputsHint = pkgs.writeShellScript "mikoshi-outputs-hint" ''
+      [ -s "$HOME/.config/sway/outputs" ] ||
+        ${pkgs.libnotify}/bin/notify-send "Monitors" "Press Alt+Shift+D to arrange your monitors"
+    '';
     mikoshiWorkspaceSwitcher = pkgs.writeShellScriptBin "msw" ''
       N=$1
       focus_index=''${2:-}
@@ -151,6 +156,13 @@ in {
         mikoshiAltTab
         swayosd
         lxqt.lxqt-policykit
+        nwg-displays
+      ];
+
+      # sway's `include ~/.config/sway/outputs` needs the file to exist
+      systemd.user.tmpfiles.rules = [
+        "d %h/.config/sway 0755 - - -"
+        "f %h/.config/sway/outputs 0644 - - -"
       ];
 
       home-manager.users = hmFor config.mikoshi.meta.users {
@@ -164,6 +176,19 @@ in {
             ExecStart = "${altTabDaemon}/bin/mikoshiAltTabDaemon";
             Restart = "on-failure";
             RestartSec = "5s";
+          };
+          Install.WantedBy = ["graphical-session.target"];
+        };
+
+        systemd.user.services.mikoshiOutputsHint = {
+          Unit = {
+            Description = "Mikoshi first-run monitor arrangement hint";
+            After = ["graphical-session.target" "swaync.service"];
+            PartOf = ["graphical-session.target"];
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = "${outputsHint}";
           };
           Install.WantedBy = ["graphical-session.target"];
         };
