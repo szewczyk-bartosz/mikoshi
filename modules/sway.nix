@@ -186,6 +186,7 @@ in {
         mikoshiAltTab
         screenshot
         nwg-displays
+        sway-audio-idle-inhibit
       ];
 
       # sway's `include ~/.config/sway/outputs` needs the file to exist
@@ -204,6 +205,17 @@ in {
         services.swayosd.enable = true;
         services.polkit-gnome.enable = true;
 
+        systemd.user.services.sway-audio-idle-inhibit = {
+          Unit = {
+            Description = "Service to prevent locking when watching media";
+            After = ["graphical-session.target"];
+            PartOf = ["graphical-session.target"];
+          };
+          Service = {
+            ExecStart = "${lib.getExe pkgs.sway-audio-idle-inhibit}";
+          };
+          Install.WantedBy = ["graphical-session.target"];
+        };
         systemd.user.services.mikoshiAltTabDaemon = {
           Unit = {
             Description = "Mikoshi alt-tab workspace tracker";
