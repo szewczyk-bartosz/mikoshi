@@ -301,6 +301,10 @@ in {
             accel_profile flat
             pointer_accel 0
         }
+        input type:keyboard {
+            xkb_layout ${lib.concatStringsSep "," osConfig.mikoshi.meta.keyboardLayouts}
+            xkb_options grp:win_space_toggle
+        }
 
         focus_follows_mouse yes
         mouse_warping output
