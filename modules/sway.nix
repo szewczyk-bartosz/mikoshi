@@ -396,8 +396,8 @@ in {
         client.urgent           ${palette.danger} ${palette.danger} ${palette.base} ${palette.danger} ${palette.danger}
 
         layer_effects "waybar" blur enable; corner_radius 12
-        layer_effects "swaync-control-center" blur enable; corner_radius 16
-        layer_effects "swaync-notification-window" blur enable; corner_radius 16
+        layer_effects "swaync-control-center" blur enable; corner_radius 16; blur_ignore_transparent enable
+        layer_effects "swaync-notification-window" blur enable; blur_ignore_transparent enable
         # walker is a full-screen transparent surface; blur only behind the box
         layer_effects "walker" blur enable; blur_ignore_transparent enable
 
