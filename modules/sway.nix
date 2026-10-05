@@ -54,8 +54,8 @@ in {
       text = ''
       prev=$(cat ~/.cache/mikoshi-alttabworkspace)
       N=$(echo "$prev" | cut -d: -f1)
-      j=$(echo "$prev" | cut -d: -f2)
-      msw "$N" "$j"
+      # saved j is whichever monitor msw focused last, so let msw keep the current one
+      msw "$N"
         '';
     };
     # active outputs ordered left to right, top to bottom; output j of desktop N is this list's j-th line
