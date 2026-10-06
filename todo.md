@@ -1,5 +1,7 @@
 MOVE TO NIXVIM
 
+look into weird black block appearing when mousing over time
+
 Move hyprland config to lua
 
 REALLY MOVE IT TO LUA
