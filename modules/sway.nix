@@ -140,6 +140,11 @@ in {
   in {
     options.mikoshi.wm.sway = {
       enable = lib.mkEnableOption "Sway desktop";
+      capsAsCtrl = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Make capslock behave as the ctrl key";
+      };
       wallpaper = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
@@ -303,7 +308,7 @@ in {
         }
         input type:keyboard {
             xkb_layout ${lib.concatStringsSep "," osConfig.mikoshi.meta.keyboardLayouts}
-            xkb_options grp:win_space_toggle
+            xkb_options grp:win_space_toggle${lib.optionalString osConfig.mikoshi.wm.sway.capsAsCtrl ",ctrl:nocaps"}
         }
 
         focus_follows_mouse yes
