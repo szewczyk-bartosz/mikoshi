@@ -1,10 +1,10 @@
+make the current keyboard layout visible on the waybar 
+
+fix the bug that makes windows fold to one screen on wakeup
+
 MOVE TO NIXVIM
 
 look into weird black block appearing when mousing over time
-
-Move hyprland config to lua
-
-REALLY MOVE IT TO LUA
 
 Do an overview of the nvf feature
 
