@@ -1,5 +1,9 @@
 make the current keyboard layout visible on the waybar 
 
+make sound control work on 
+
+make workspaces clickable
+
 fix the bug that makes windows fold to one screen on wakeup
 
 MOVE TO NIXVIM
@@ -15,7 +19,7 @@ Make OBS aspect work well on non-AMD cards (currently obs-amd hardcodes radeonsi
 Fold base.nix into default.nix now that nothing imports "base" by name anymore
 
 Split network.nix, nix-garbage-collection.nix, nvf.nix, stylix.nix into their own standalone aspects (each already has its own enable option, just sharing the "base" key for historical import-selection reasons)
-
+ 
 Split audio.nix, fonts.nix, ghostty.nix out of "graphical" into their own honestly-named, independently-toggleable aspects — right now enabling graphical silently installs ghostty/fonts/pipewire, which nothing about the name implies
 
 Re-check whether "graphical" survives as a real profile-style aspect (mikoshi.audio.enable = mkDefault true; etc, a deliberate bundle) or dissolves entirely into siblings hosts toggle individually — decide once the above split is done
