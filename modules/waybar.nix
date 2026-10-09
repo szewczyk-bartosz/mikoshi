@@ -124,7 +124,7 @@ in {
       "custom/power" = {
         format = "⏻";
         tooltip = false;
-        on-click = "swaynag -t warning -m 'Power?' -B 'Shutdown' 'systemctl poweroff' -B 'Reboot' 'systemctl reboot' -B 'Logout' 'swaymsg exit'";
+        on-click = "swaynag -t warning -m 'Currently not implemented'";
       };
     };
 
@@ -153,6 +153,8 @@ in {
       #pulseaudio,
       #battery,
       #custom-power { padding: 0 12px; }
+
+      #custom-power {margin: 0 12px 0 0}
 
       #pulseaudio.muted,
       #custom-power { color: @muted; }
