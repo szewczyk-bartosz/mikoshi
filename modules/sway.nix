@@ -370,6 +370,10 @@ in {
         bindsym $mod+Shift+d exec nwg-displays
         bindsym $mod+Tab exec mikoshiAltTab
 
+        for_window [app_id=".*"] inhibit_idle fullscreen
+        for_window [class=".*"] inhibit_idle fullscreen
+        for_window [class="^steam_app_.*"] inhibit_idle focus
+
         # screenshots: save to ~/Pictures/Screenshots and copy
         bindsym $mod+Shift+s exec mikoshi-screenshot area
         bindsym Print exec mikoshi-screenshot output
