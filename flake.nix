@@ -5,7 +5,7 @@
     nixpkgs.url = "nixpkgs/nixos-26.05";
     nvf = {
       url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     neovim-nightly-overlay = {
