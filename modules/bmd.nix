@@ -12,7 +12,7 @@
     };
     config = lib.mkIf cfg.enable {
       environment.systemPackages = [
-        inputs.bmd.packages.${pkgs.system}.bmd
+        inputs.bmd.packages.${pkgs.stdenv.hostPlatform.system}.bmd
       ];
     };
   };

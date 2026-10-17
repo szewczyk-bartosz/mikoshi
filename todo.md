@@ -1,3 +1,5 @@
+open in terminal doesnt work in thunar 
+
 make the current keyboard layout visible on the waybar 
 
 make sound control work on 
@@ -25,3 +27,4 @@ Split audio.nix, fonts.nix, ghostty.nix out of "graphical" into their own honest
 Re-check whether "graphical" survives as a real profile-style aspect (mikoshi.audio.enable = mkDefault true; etc, a deliberate bundle) or dissolves entirely into siblings hosts toggle individually — decide once the above split is done
 
 Write up an install-guide section listing mkDefault'd real NixOS options (time.timeZone, i18n.defaultLocale, console.font) so users know what's defaulted and how to override — decided against a mikoshi.meta.timezone-style wrapper option, it's pure indirection with no transformation happening
+
