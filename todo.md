@@ -1,3 +1,7 @@
+add xdg rules for nicer home dir
+
+thunar file transfer window gets tiled 
+
 open in terminal doesnt work in thunar 
 
 make the current keyboard layout visible on the waybar 
