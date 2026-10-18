@@ -172,6 +172,7 @@ in {
           export WLR_SCENE_DISABLE_DIRECT_SCANOUT=1
         '';
       };
+      programs.nm-applet.enable = true;
 
       programs.uwsm = {
         enable = true;
