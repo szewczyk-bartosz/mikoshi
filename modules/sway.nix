@@ -300,6 +300,9 @@ in {
 
         # monitor layout, written by nwg-displays ($mod+Shift+d)
         include ~/.config/sway/outputs
+        # clamshell: turn off the laptop panel while the lid is shut
+        bindswitch --reload --locked lid:on output eDP-1 disable
+        bindswitch --reload --locked lid:off output eDP-1 enable
 
         font pango:monospace 10
         seat * xcursor_theme WhiteSur-cursors 24
