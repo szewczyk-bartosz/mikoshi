@@ -68,6 +68,19 @@ in {
       j=$(${mswOutputs}/bin/msw-outputs | grep -nxF "$focused" | cut -d: -f1)
       swaymsg "move container to workspace $N:$j"
     '';
+    # `mikoshi-lid [open|closed]`: enable/disable internal panels (eDP/LVDS/DSI
+    # connectors; disabled outputs still show in get_outputs). With no argument
+    # the lid state is read, since libinput sends no event at startup for an open
+    # lid; no lid counts as open
+    lidSync = pkgs.writeShellScriptBin "mikoshi-lid" ''
+      state=''${1:-}
+      if [ -z "$state" ]; then
+          if grep -qs closed /proc/acpi/button/lid/*/state; then state=closed; else state=open; fi
+      fi
+      [ "$state" = closed ] && action=disable || action=enable
+      swaymsg -t get_outputs | jq -r '.[].name | select(test("^(eDP|LVDS|DSI)-"))' |
+          while read -r panel; do swaymsg "output $panel $action"; done
+    '';
     # nudge towards nwg-displays until a layout has been saved
     outputsHint = pkgs.writeShellScript "mikoshi-outputs-hint" ''
       [ -s "$HOME/.config/sway/outputs" ] ||
@@ -189,6 +202,7 @@ in {
         playerctl
         mikoshiWorkspaceSwitcher
         mswMove
+        lidSync
         mikoshiAltTab
         screenshot
         nwg-displays
@@ -300,9 +314,11 @@ in {
 
         # monitor layout, written by nwg-displays ($mod+Shift+d)
         include ~/.config/sway/outputs
-        # clamshell: turn off the laptop panel while the lid is shut
-        bindswitch --reload --locked lid:on output eDP-1 disable
-        bindswitch --reload --locked lid:off output eDP-1 enable
+        # clamshell: the lid alone decides the laptop panel, overriding any
+        # `disable` nwg-displays wrote while docked
+        exec_always mikoshi-lid
+        bindswitch --reload --locked lid:on exec mikoshi-lid closed
+        bindswitch --reload --locked lid:off exec mikoshi-lid open
 
         font pango:monospace 10
         seat * xcursor_theme WhiteSur-cursors 24
