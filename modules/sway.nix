@@ -394,6 +394,19 @@ in {
         for_window [class=".*"] inhibit_idle fullscreen
         for_window [class="^steam_app_.*"] inhibit_idle focus
 
+        # thunar: float dialogs
+        for_window [app_id="thunar" title="^Rename"] floating enable
+        for_window [app_id="thunar" title="^Bulk Rename"] floating enable
+        for_window [app_id="thunar" title="^Create New (Folder|File)"] floating enable
+        for_window [app_id="thunar" title="Properties$"] floating enable
+        for_window [app_id="thunar" title="^File Operation Progress"] floating enable
+        for_window [app_id="thunar" title="^Confirm"] floating enable
+        for_window [app_id="thunar" title="^(Attention|Error|Warning)"] floating enable
+        for_window [app_id="thunar" title="^Open With"] floating enable
+
+        # catch-all: GTK file chooser / "Save As" dialogs from any app
+        for_window [title="^(Open|Save)( File| As)?"] floating enable
+
         # screenshots: save to ~/Pictures/Screenshots and copy
         bindsym $mod+Shift+s exec mikoshi-screenshot area
         bindsym Print exec mikoshi-screenshot output
