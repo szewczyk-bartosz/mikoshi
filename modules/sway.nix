@@ -177,6 +177,7 @@ in {
       mikoshi.regreet.enable = lib.mkDefault true;
       mikoshi.graphical.enable = lib.mkDefault true;
       mikoshi.appearance.enable = lib.mkDefault true;
+      mikoshi.thunar.enable = lib.mkDefault true;
 
       programs.sway = {
         enable = true;

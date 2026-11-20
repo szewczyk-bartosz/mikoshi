@@ -1,7 +1,5 @@
 add xdg rules for nicer home dir
 
-open in terminal doesnt work in thunar 
-
 make the current keyboard layout visible on the waybar 
 
 make sound control work on 

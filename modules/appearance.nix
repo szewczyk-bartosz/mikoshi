@@ -20,10 +20,6 @@ in {
 
       # home-manager writes color-scheme, icon and cursor settings through dconf
       programs.dconf.enable = true;
-
-      programs.thunar.enable = true;
-      services.tumbler.enable = true;
-      services.gvfs.enable = true;
     };
   };
 
