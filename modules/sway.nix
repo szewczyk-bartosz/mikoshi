@@ -11,52 +11,52 @@ in {
     cfg = config.mikoshi.wm.sway;
     palette = (import ./_palette.nix).${config.mikoshi.theme.polarity};
     altTabDaemon = pkgs.writers.writePython3Bin "mikoshiAltTabDaemon" {libraries = [pkgs.python3Packages.i3ipc];} ''
-    import i3ipc
-    import os
-    import subprocess
+      import i3ipc
+      import os
+      import subprocess
 
-    ipc = i3ipc.Connection()
+      ipc = i3ipc.Connection()
 
-    state_file = os.path.expanduser("~/.cache/mikoshi-alttabworkspace")
-    os.makedirs(os.path.dirname(state_file), exist_ok=True)
+      state_file = os.path.expanduser("~/.cache/mikoshi-alttabworkspace")
+      os.makedirs(os.path.dirname(state_file), exist_ok=True)
 
-    with open(state_file, "w") as f:
-        f.write("1:1")
-
-
-    def on_output(ipc, event):
-        focused = [i for i in ipc.get_workspaces() if i.focused]
-        if focused:
-            n = focused[0].name.partition(":")[0]
-            binpath = "${mikoshiWorkspaceSwitcher}/bin/msw"
-            subprocess.run([binpath, n])
+      with open(state_file, "w") as f:
+          f.write("1:1")
 
 
-    def on_workspace(ipc, event):
-        if event.change == 'focus' and event.old:
-            old = event.old.name  # the workspace you just left
-            new = event.current.name
-            # extract N from "N:j"
-            prev_n = old.partition(":")[0]
-            new_n = new.partition(":")[0]
-            if prev_n != new_n:
-                with open(state_file, "w") as f:
-                    f.write(old)
+      def on_output(ipc, event):
+          focused = [i for i in ipc.get_workspaces() if i.focused]
+          if focused:
+              n = focused[0].name.partition(":")[0]
+              binpath = "${mikoshiWorkspaceSwitcher}/bin/msw"
+              subprocess.run([binpath, n])
 
 
-    ipc.on("workspace", on_workspace)
-    ipc.on("output", on_output)
-    ipc.main()
+      def on_workspace(ipc, event):
+          if event.change == 'focus' and event.old:
+              old = event.old.name  # the workspace you just left
+              new = event.current.name
+              # extract N from "N:j"
+              prev_n = old.partition(":")[0]
+              new_n = new.partition(":")[0]
+              if prev_n != new_n:
+                  with open(state_file, "w") as f:
+                      f.write(old)
+
+
+      ipc.on("workspace", on_workspace)
+      ipc.on("output", on_output)
+      ipc.main()
     '';
     mikoshiAltTab = pkgs.writeShellApplication {
       name = "mikoshiAltTab";
-      runtimeInputs = [ mikoshiWorkspaceSwitcher ];
+      runtimeInputs = [mikoshiWorkspaceSwitcher];
       text = ''
-      prev=$(cat ~/.cache/mikoshi-alttabworkspace)
-      N=$(echo "$prev" | cut -d: -f1)
-      # saved j is whichever monitor msw focused last, so let msw keep the current one
-      msw "$N"
-        '';
+        prev=$(cat ~/.cache/mikoshi-alttabworkspace)
+        N=$(echo "$prev" | cut -d: -f1)
+        # saved j is whichever monitor msw focused last, so let msw keep the current one
+        msw "$N"
+      '';
     };
     # active outputs ordered left to right, top to bottom; output j of desktop N is this list's j-th line
     mswOutputs = pkgs.writeShellScriptBin "msw-outputs" ''
@@ -132,7 +132,7 @@ in {
               swaymsg "[workspace=\"^$ws\$\"] move container to workspace $N:$count"
           fi
       done
-      
+
       # Create workspace layout
       j=1
       focus_output=""
@@ -283,7 +283,6 @@ in {
         };
       };
     };
-    
   };
 
   flake.modules.homeManager.sway = {

@@ -64,78 +64,80 @@ in {
         };
       };
 
-      style = gtkColors palette + ''
-        * {
-          font-family: sans-serif;
-          font-size: 13px;
-        }
+      style =
+        gtkColors palette
+        + ''
+          * {
+            font-family: sans-serif;
+            font-size: 13px;
+          }
 
-        .notification-row { outline: none; }
-        .notification-row .notification-background { padding: 4px 8px; }
+          .notification-row { outline: none; }
+          .notification-row .notification-background { padding: 4px 8px; }
 
-        .notification-row .notification-background .notification,
-        .control-center {
-          background: alpha(@base, 0.8);
-          border: 1px solid alpha(@text, 0.08);
-          border-radius: 16px;
-          color: @text;
-        }
+          .notification-row .notification-background .notification,
+          .control-center {
+            background: alpha(@base, 0.8);
+            border: 1px solid alpha(@text, 0.08);
+            border-radius: 16px;
+            color: @text;
+          }
 
-        .control-center { margin-bottom: 16px; }
-        .control-center .notification-row .notification-background .notification {
-          background: alpha(@surface, 0.6);
-        }
+          .control-center { margin-bottom: 16px; }
+          .control-center .notification-row .notification-background .notification {
+            background: alpha(@surface, 0.6);
+          }
 
-        .notification.critical { border-color: @danger; }
-        .summary { font-weight: bold; color: @text; }
-        .body,
-        .time { color: @muted; }
+          .notification.critical { border-color: @danger; }
+          .summary { font-weight: bold; color: @text; }
+          .body,
+          .time { color: @muted; }
 
-        .close-button {
-          background: alpha(@surface, 0.8);
-          color: @text;
-          border-radius: 100%;
-        }
+          .close-button {
+            background: alpha(@surface, 0.8);
+            color: @text;
+            border-radius: 100%;
+          }
 
-        .notification-action,
-        .widget-buttons-grid > flowbox > flowboxchild > button,
-        .widget-title > button {
-          background: alpha(@surface, 0.6);
-          color: @text;
-          border: none;
-          border-radius: 12px;
-        }
+          .notification-action,
+          .widget-buttons-grid > flowbox > flowboxchild > button,
+          .widget-title > button {
+            background: alpha(@surface, 0.6);
+            color: @text;
+            border: none;
+            border-radius: 12px;
+          }
 
-        .notification-action:hover,
-        .widget-buttons-grid > flowbox > flowboxchild > button:hover,
-        .widget-title > button:hover { background: @surface; }
+          .notification-action:hover,
+          .widget-buttons-grid > flowbox > flowboxchild > button:hover,
+          .widget-title > button:hover { background: @surface; }
 
-        .widget-title,
-        .widget-dnd,
-        .widget-volume,
-        .widget-backlight,
-        .widget-buttons-grid {
-          margin: 8px 16px;
-          color: @text;
-        }
+          .widget-title,
+          .widget-dnd,
+          .widget-volume,
+          .widget-backlight,
+          .widget-buttons-grid {
+            margin: 8px 16px;
+            color: @text;
+          }
 
-        .widget-title > label { font-size: 16px; font-weight: bold; }
+          .widget-title > label { font-size: 16px; font-weight: bold; }
 
-        .widget-dnd > switch {
-          background: alpha(@surface, 0.8);
-          border-radius: 12px;
-        }
-        .widget-dnd > switch:checked { background: @accent; }
-        .widget-dnd > switch slider {
-          background: @text;
-          border-radius: 12px;
-        }
+          .widget-dnd > switch {
+            background: alpha(@surface, 0.8);
+            border-radius: 12px;
+          }
+          .widget-dnd > switch:checked { background: @accent; }
+          .widget-dnd > switch slider {
+            background: @text;
+            border-radius: 12px;
+          }
 
-        .widget-volume trough,
-        .widget-backlight trough { background: alpha(@surface, 0.8); }
-        .widget-volume highlight,
-        .widget-backlight highlight { background: @muted; }
-      '';
+          .widget-volume trough,
+          .widget-backlight trough { background: alpha(@surface, 0.8); }
+          .widget-volume highlight,
+          .widget-backlight highlight { background: @muted; }
+        '';
     };
   };
 }

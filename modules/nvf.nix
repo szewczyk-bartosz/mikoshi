@@ -333,7 +333,7 @@
               format.enable = true;
               lsp = {
                 enable = true;
-                servers = [ "nixd" ];
+                servers = ["nixd"];
               };
             };
 
