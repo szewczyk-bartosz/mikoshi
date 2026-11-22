@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
 in {
@@ -8,6 +10,7 @@ in {
     ...
   }: {
     options.mikoshi.lock.enable = lib.mkEnableOption "swaylock screen locker and swayidle";
+    options.mikoshi.lock.palette = paletteOption config.mikoshi.meta.palette;
 
     config = lib.mkIf config.mikoshi.lock.enable {
       # without a PAM service swaylock can never unlock
@@ -24,7 +27,7 @@ in {
     osConfig,
     ...
   }: let
-    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    palette = resolvePalette "mikoshi.lock" osConfig.mikoshi.lock.palette osConfig.mikoshi.theme.polarity;
     # swaylock wants RRGGBB[AA] without the leading #
     c = name: lib.removePrefix "#" palette.${name};
     lock = "${lib.getExe config.programs.swaylock.package} -f";

@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
   gtkColors = config.flake.lib.gtkColors;
@@ -13,6 +15,7 @@ in {
   in {
     options.mikoshi.waybar = {
       enable = lib.mkEnableOption "waybar status bar";
+      palette = paletteOption config.mikoshi.meta.palette;
 
       battery.enable = lib.mkEnableOption "waybar battery tray icon";
 
@@ -35,7 +38,7 @@ in {
     osConfig,
     ...
   }: let
-    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    palette = resolvePalette "mikoshi.waybar" osConfig.mikoshi.waybar.palette osConfig.mikoshi.theme.polarity;
     # sway drops empty hidden workspaces, so sway/workspaces differs per monitor;
     # derive desktops from workspace names instead so every bar looks the same
     desktops = pkgs.writeShellApplication {

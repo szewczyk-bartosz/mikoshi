@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   gtkColors = config.flake.lib.gtkColors;
 in {
   flake.modules.nixos.regreet = {
@@ -9,7 +11,7 @@ in {
   }: let
     cfg = config.programs.regreet;
     polarity = config.mikoshi.theme.polarity;
-    palette = (import ./_palette.nix).${polarity};
+    palette = resolvePalette "mikoshi.regreet" config.mikoshi.regreet.palette polarity;
     # regreet keeps the first <dir>/wayland-sessions/<file> it finds and skips
     # NoDisplay ones, so shadowing sway.desktop leaves only "Sway (UWSM)"
     hiddenSessions = pkgs.writeTextDir "share/wayland-sessions/sway.desktop" ''
@@ -25,6 +27,7 @@ in {
     '';
   in {
     options.mikoshi.regreet.enable = lib.mkEnableOption "ReGreet login screen";
+    options.mikoshi.regreet.palette = paletteOption config.mikoshi.meta.palette;
 
     config = lib.mkIf config.mikoshi.regreet.enable {
       services.greetd.settings.default_session.command = greeter;

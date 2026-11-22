@@ -1,4 +1,6 @@
-{...}: {
+{config, ...}: let
+  paletteSetType = config.flake.lib.paletteSetType;
+in {
   flake.modules.nixos.base = {
     config,
     lib,
@@ -14,6 +16,16 @@
           default = ["gb"];
           type = lib.types.listOf lib.types.str;
           description = "the keyboard layouts to set";
+        };
+        palette = lib.mkOption {
+          type = paletteSetType;
+          default = import ./_palette.nix;
+          defaultText = lib.literalExpression "import ./_palette.nix";
+          description = ''
+            Global palette set. Every themed module's own `palette` option
+            defaults to this. mikoshi.theme.polarity picks the variant used, and
+            still drives the icon theme and GTK colour scheme on its own.
+          '';
         };
       };
     };

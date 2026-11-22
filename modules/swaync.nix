@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
   gtkColors = config.flake.lib.gtkColors;
@@ -9,6 +11,7 @@ in {
     ...
   }: {
     options.mikoshi.swaync.enable = lib.mkEnableOption "swaync notification centre";
+    options.mikoshi.swaync.palette = paletteOption config.mikoshi.meta.palette;
 
     config = lib.mkIf config.mikoshi.swaync.enable {
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.swaync;
@@ -20,7 +23,7 @@ in {
     osConfig,
     ...
   }: let
-    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    palette = resolvePalette "mikoshi.swaync" osConfig.mikoshi.swaync.palette osConfig.mikoshi.theme.polarity;
   in {
     home.packages = [pkgs.libnotify];
 

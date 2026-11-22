@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
   gtkColors = config.flake.lib.gtkColors;
@@ -10,6 +12,7 @@ in {
     ...
   }: {
     options.mikoshi.appearance.enable = lib.mkEnableOption "GTK, Qt, icon, cursor and font theming";
+    options.mikoshi.appearance.palette = paletteOption config.mikoshi.meta.palette;
 
     config = lib.mkIf config.mikoshi.appearance.enable {
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.appearance;
@@ -29,7 +32,7 @@ in {
     ...
   }: let
     polarity = osConfig.mikoshi.theme.polarity;
-    palette = (import ./_palette.nix).${polarity};
+    palette = resolvePalette "mikoshi.appearance" osConfig.mikoshi.appearance.palette polarity;
     iconTheme = "WhiteSur-${polarity}";
     qtctSettings = {
       Appearance = {

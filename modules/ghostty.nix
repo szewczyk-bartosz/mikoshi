@@ -1,10 +1,16 @@
-{...}: {
+{config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
+  ansiSlots = config.flake.lib.ansiSlots;
+in {
   flake.modules.nixos.graphical = {
     config,
     pkgs,
     lib,
     ...
   }: {
+    options.mikoshi.ghostty.palette = paletteOption config.mikoshi.meta.palette;
+
     config = lib.mkIf config.mikoshi.graphical.enable {
       environment.systemPackages = with pkgs; [
         ghostty
@@ -19,36 +25,10 @@
     ...
   }: let
     polarity = osConfig.mikoshi.theme.polarity;
-    p = (import ./_palette.nix).${polarity};
-    # The palette has no green/blue/cyan, and adding them there would leak into
-    # every GTK stylesheet via gtkColors. danger/warning are One Dark's red and
-    # yellow, so the missing hues come from One Dark / One Light. ANSI black
-    # stays the darkest grey and white the lightest in both modes, as programs
-    # printing "black" or "white" text expect.
-    terminalColours = {
-      dark = {
-        green = "#98c379";
-        blue = "#61afef";
-        cyan = "#56b6c2";
-        black = p.overlay;
-        brightBlack = p.subtle;
-        white = p.text;
-        brightWhite = p.text;
-      };
-      light = {
-        green = "#50a14f";
-        blue = "#4078f2";
-        cyan = "#0184bc";
-        black = p.text;
-        brightBlack = p.muted;
-        white = p.subtle;
-        brightWhite = p.overlay;
-      };
-    };
-    extra = terminalColours.${polarity};
-    hues = [p.danger extra.green p.warning extra.blue p.accent extra.cyan];
+    p = resolvePalette "mikoshi.ghostty" osConfig.mikoshi.ghostty.palette polarity;
+    t = p.terminal;
     # 0-7 normal, 8-15 bright
-    ansi = [extra.black] ++ hues ++ [extra.white extra.brightBlack] ++ hues ++ [extra.brightWhite];
+    ansi = map (slot: t.normal.${slot}) ansiSlots ++ map (slot: t.bright.${slot}) ansiSlots;
     cursorShaders = pkgs.fetchFromGitHub {
       owner = "sahaj-b";
       repo = "ghostty-cursor-shaders";
@@ -65,7 +45,7 @@
           background = lib.mkDefault p.base;
           foreground = lib.mkDefault p.text;
           cursor-color = lib.mkDefault p.accent;
-          selection-background = lib.mkDefault p.subtle;
+          selection-background = lib.mkDefault p.highlight;
           selection-foreground = lib.mkDefault p.text;
           palette = lib.mkDefault (lib.imap0 (i: hex: "${toString i}=${hex}") ansi);
 

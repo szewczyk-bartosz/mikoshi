@@ -1,12 +1,9 @@
 {
-  description = "Mikoshi - A samurai's nixOS config";
+  description = "Mikoshi - a samurai's NixOS config";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nvf.url = "github:NotAShelf/nvf";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -19,11 +16,6 @@
     };
 
     import-tree.url = "github:denful/import-tree";
-    stylix = {
-      url = "github:nix-community/stylix/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.flake-parts.follows = "flake-parts";
-    };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 

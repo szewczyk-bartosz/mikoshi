@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
 in {
@@ -9,7 +11,7 @@ in {
     ...
   }: let
     cfg = config.mikoshi.wm.sway;
-    palette = (import ./_palette.nix).${config.mikoshi.theme.polarity};
+    palette = resolvePalette "mikoshi.wm.sway" config.mikoshi.wm.sway.palette config.mikoshi.theme.polarity;
     altTabDaemon = pkgs.writers.writePython3Bin "mikoshiAltTabDaemon" {libraries = [pkgs.python3Packages.i3ipc];} ''
       import i3ipc
       import os
@@ -153,6 +155,7 @@ in {
   in {
     options.mikoshi.wm.sway = {
       enable = lib.mkEnableOption "Sway desktop";
+      palette = paletteOption config.mikoshi.meta.palette;
       capsAsCtrl = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -290,7 +293,7 @@ in {
     osConfig,
     ...
   }: let
-    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    palette = resolvePalette "mikoshi.wm.sway" osConfig.mikoshi.wm.sway.palette osConfig.mikoshi.theme.polarity;
     # $mod+N switches desktop N on every monitor, $mod+Shift+N sends the
     # focused window to desktop N on this monitor; 0 is desktop 10
     workspaceBinds = lib.concatMapStrings (n: let

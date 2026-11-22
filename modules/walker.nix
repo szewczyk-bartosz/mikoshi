@@ -1,4 +1,6 @@
 {config, ...}: let
+  paletteOption = config.flake.lib.paletteOption;
+  resolvePalette = config.flake.lib.resolvePalette;
   hmFor = config.flake.lib.hmFor;
   hmClass = config.flake.modules.homeManager;
   gtkColors = config.flake.lib.gtkColors;
@@ -13,6 +15,7 @@ in {
   in {
     options.mikoshi.walker = {
       enable = lib.mkEnableOption "Walker launcher";
+      palette = paletteOption config.mikoshi.meta.palette;
     };
     config = lib.mkIf cfg.enable {
       home-manager.users = hmFor config.mikoshi.meta.users hmClass.walker;
@@ -26,7 +29,7 @@ in {
   };
 
   flake.modules.homeManager.walker = {osConfig, ...}: let
-    palette = (import ./_palette.nix).${osConfig.mikoshi.theme.polarity};
+    palette = resolvePalette "mikoshi.walker" osConfig.mikoshi.walker.palette osConfig.mikoshi.theme.polarity;
     sessionUnit = {
       After = ["graphical-session.target"];
       PartOf = ["graphical-session.target"];
