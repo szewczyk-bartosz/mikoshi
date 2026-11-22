@@ -18,9 +18,6 @@
 
   ansiSlots = ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "white"];
 
-  # One polarity's worth of colours. Core colours and terminal green/blue/cyan
-  # are required; the other ANSI slots default to the core colour they mean,
-  # and every bright slot defaults to its normal one.
   paletteType = types.submodule ({config, ...}: {
     options = {
       base = colour "Window and terminal background.";
@@ -65,7 +62,7 @@ in {
   flake.lib.hmFor = users: module:
     lib.genAttrs users (_: {imports = [module];});
 
-  # only top-level colours; nested sets like `terminal` stay out of the CSS
+  # Prevents breaking gtk colours by removing the nested ones
   flake.lib.gtkColors = palette:
     lib.concatStrings
     (lib.mapAttrsToList (name: hex: "@define-color ${name} ${hex};\n")
@@ -84,7 +81,6 @@ in {
       description = "Palette for this module. Defaults to the global palette; may define only one polarity, but must define the one mikoshi.theme.polarity selects.";
     };
 
-  # pick the variant for the system's polarity, failing loudly if it's missing
   flake.lib.resolvePalette = where: set: polarity: let
     defined = lib.attrNames (lib.filterAttrs (_: v: v != null) set);
   in
