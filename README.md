@@ -7,7 +7,7 @@ A complete, themed NixOS desktop you add to your own flake and switch on piece b
 <p align="center">
   <img src="assets/desktop.png" alt="Sway desktop with waybar" width="49%">
   <img src="assets/launcher.png" alt="Walker launcher" width="49%">
-  <img src="assets/terminal.png" alt="swaylock-effects lock screen" width="49%">
+  <img src="assets/terminal.png" alt="Terminal (Ghostty)" width="49%">
   <img src="assets/neovim.png" alt="Neovim dashboard" width="49%">
 </p>
 
