@@ -40,7 +40,7 @@ Add mikoshi to your flake, list your users, and enable what you want:
 }
 ```
 
-Nothing happens until you turn it on. `mikoshi.wm.sway.enable` brings the whole desktop with it, and you can switch any part back off, e.g. `mikoshi.waybar.enable = false;` if you'd rather use your own bar.
+Importing the module only turns on the basics (NetworkManager, garbage collection, neovim, tmux). `mikoshi.wm.sway.enable` brings the whole desktop with it, and you can switch any part back off, e.g. `mikoshi.waybar.enable = false;` if you'd rather use your own bar.
 
 ## What you get
 
