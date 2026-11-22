@@ -13,6 +13,16 @@
         default = true;
         description = "Whether to enable the nvf (Neovim) configuration";
       };
+      nixdFlake = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "/home/samurai/nixos";
+        description = ''
+          Flake whose nixosConfigurations.<hostName> nixd reads NixOS option
+          completions from. When null, nixd uses the flake in the directory
+          nvim was opened in, so completions only work from inside that flake.
+        '';
+      };
     };
     imports = [inputs.nvf.nixosModules.default];
     config = lib.mkIf cfg.enable {
@@ -96,7 +106,7 @@
                   "█▌ ╚═╝     ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝      ╚═══╝  ╚═╝╚═╝     ╚═╝ ▐█"
                   "█▌                                                                               ▐█"
                   "███████████████████████████████████████████████████████████████████████████████████"
-                  "                Wake the fuck up Samurai, we've got a city to burn                 "
+                  "                    Wake up, Samurai. We've got a city to burn.                    "
                   "                                                                                   "
                   "                                                                                   "
                   "                                                                                   "
@@ -326,7 +336,12 @@
             };
           };
 
-          lsp.servers.nixd.settings.nixd.options.nixos.expr = ''(builtins.getFlake (toString ./.)).nixosConfigurations."${config.networking.hostName}".options'';
+          lsp.servers.nixd.settings.nixd.options.nixos.expr = let
+            flake =
+              if cfg.nixdFlake == null
+              then "(toString ./.)"
+              else ''"${cfg.nixdFlake}"'';
+          in ''(builtins.getFlake ${flake}).nixosConfigurations."${config.networking.hostName}".options'';
           languages = {
             nix = {
               enable = true;

@@ -8,7 +8,7 @@
     cfg = config.mikoshi.obs-amd;
   in {
     options.mikoshi.obs-amd = {
-      enable = lib.mkEnableOption "OBS Studio with AMD VAAPI hardware encoding";
+      enable = lib.mkEnableOption "OBS Studio with VAAPI hardware encoding (AMD GPUs only: forces the radeonsi driver)";
     };
     config = lib.mkIf cfg.enable {
       hardware.graphics = {
