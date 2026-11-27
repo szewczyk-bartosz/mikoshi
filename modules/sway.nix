@@ -388,7 +388,7 @@ in {
         bindsym $mod+Shift+q kill
         bindsym $mod+f fullscreen
         bindsym $mod+Shift+c reload
-        bindsym $mod+Shift+e exec swaymsg exit
+        bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
         bindsym Mod4+l exec loginctl lock-session
         bindsym $mod+Shift+d exec nwg-displays
         bindsym $mod+Tab exec mikoshiAltTab
